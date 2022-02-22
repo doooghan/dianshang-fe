@@ -10,7 +10,11 @@
       <span class="search__text">山姆会员商店优惠商品</span>
     </div>
     <div class="banner">
-      <img src="http://www.dell-lee.com/imgs/vue3/banner.jpg" alt="" />
+      <img
+        class="banner__img"
+        src="http://www.dell-lee.com/imgs/vue3/banner.jpg"
+        alt=""
+      />
     </div>
   </div>
   <div class="docker">
@@ -78,6 +82,15 @@
   &__text {
     display: inline-block;
     font-size: 0.16rem;
+  }
+}
+.banner {
+  // 这三行是为了防止网络太慢，导致图片没加载出来引起的页面抖动
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 25.4%;
+  &__img {
+    width: 100%;
   }
 }
 .docker {
