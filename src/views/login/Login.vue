@@ -6,12 +6,14 @@
     <div class="wrapper__input">
       <input type="text"
              class="wrapper__input__content"
-             placeholder="请输入手机号" />
+             placeholder="请输入用户名"
+             v-model="data.username" />
     </div>
     <div class="wrapper__input">
       <input type="password"
              class="wrapper__input__content"
-             placeholder="请输入密码" />
+             placeholder="请输入密码"
+             v-model="data.password" />
     </div>
     <div class="wrapper__login-button"
          @click="handleLogin">登录</div>
@@ -26,18 +28,40 @@
 
 <script>
 import { useRouter } from 'vue-router'
+import axios from 'axios'
+import { reactive } from 'vue'
+
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+
 export default {
   name: 'Login',
   setup() {
+    const data = reactive({
+      username: '',
+      password: '',
+    })
     const router = useRouter()
     const handleLogin = () => {
-      localStorage.isLogin = true
-      router.push({ name: 'Home' })
+      axios
+        .post(
+          'https://www.fastmock.site/mock/ae8e9031947a302fed5f92425995aa19/jd/api/user/login',
+          {
+            username: data.username,
+            password: data.password,
+          }
+        )
+        .then(() => {
+          localStorage.isLogin = true
+          router.push({ name: 'Home' })
+        })
+        .catch(() => {
+          alert('密码错误')
+        })
     }
     const handleRegisterClick = () => {
       router.push({ name: 'Register' })
     }
-    return { handleLogin, handleRegisterClick }
+    return { handleLogin, handleRegisterClick, data }
   },
 }
 </script>
