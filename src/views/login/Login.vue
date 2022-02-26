@@ -1,23 +1,17 @@
 <template>
   <div class="wrapper">
-    <img
-      src="http://www.dell-lee.com/imgs/vue3/user.png"
-      alt=""
-      class="wrapper__img"
-    />
+    <img src="http://www.dell-lee.com/imgs/vue3/user.png"
+         alt=""
+         class="wrapper__img" />
     <div class="wrapper__input">
-      <input
-        type="text"
-        class="wrapper__input__content"
-        placeholder="请输入手机号"
-      />
+      <input type="text"
+             class="wrapper__input__content"
+             placeholder="请输入手机号" />
     </div>
     <div class="wrapper__input">
-      <input
-        type="text"
-        class="wrapper__input__content"
-        placeholder="请输入密码"
-      />
+      <input type="text"
+             class="wrapper__input__content"
+             placeholder="请输入密码" />
     </div>
     <div class="wrapper__login-button">登录</div>
     <div class="wrapper__login-link">立即注册</div>
@@ -26,12 +20,12 @@
 
 <script>
 export default {
-  name: "Login"
-};
+  name: 'Login',
+}
 </script>
 
 <style lang="scss" scoped>
-@import "../../style/viriables.scss";
+@import '../../style/viriables.scss';
 .wrapper {
   position: absolute;
   top: 50%;
@@ -49,7 +43,7 @@ export default {
     padding: 0 0.16rem;
     margin: 0 0.4rem 0.16rem 0.4rem;
     background: #f9f9f9;
-    border: 1px solid rgba(0,0,0,0.10);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0.06rem;
     &__content {
       width: 100%;
