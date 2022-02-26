@@ -13,7 +13,8 @@
       <input type="password"
              class="wrapper__input__content"
              placeholder="请输入密码"
-             v-model="password" />
+             v-model="password"
+             autocomplete="new-password" />
     </div>
     <div class="wrapper__login-button"
          @click="handleLogin">登录</div>
@@ -42,7 +43,17 @@ const useLoginEffect = (showToast) => {
   })
   const handleLogin = async () => {
     try {
-      const result = await post('111api/user/login', {
+      const { username, password } = data
+      if (
+        username == null ||
+        username === '' ||
+        password == null ||
+        password === ''
+      ) {
+        showToast('请输入用户名和密码')
+        return null
+      }
+      const result = await post('api/user/login', {
         username: data.username,
         password: data.password,
       })
