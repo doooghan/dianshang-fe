@@ -41,22 +41,25 @@ export default {
       password: '',
     })
     const router = useRouter()
-    const handleLogin = () => {
-      axios
-        .post(
+    const handleLogin = async () => {
+      try {
+        const result = await axios.post(
           'https://www.fastmock.site/mock/ae8e9031947a302fed5f92425995aa19/jd/api/user/login',
           {
             username: data.username,
             password: data.password,
           }
         )
-        .then(() => {
+        console.log(result)
+        if (result?.data?.errno === 0) {
           localStorage.isLogin = true
           router.push({ name: 'Home' })
-        })
-        .catch(() => {
-          alert('密码错误')
-        })
+        } else {
+          alert('登录失败')
+        }
+      } catch {
+        alert('请求失败')
+      }
     }
     const handleRegisterClick = () => {
       router.push({ name: 'Register' })
