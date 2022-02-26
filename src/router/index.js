@@ -13,12 +13,8 @@ const routes = [
     name: "Login",
     component: Login,
     beforeEnter(to, from, next) {
-      const isLogin = localStorage.isLogin;
-      if (isLogin) {
-        next({ name: "Home" });
-      } else {
-        next();
-      }
+      const { isLogin } = localStorage;
+      isLogin ? next({ name: "Home" }) : next();
     },
   },
   // {
@@ -38,11 +34,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const isLogin = localStorage.isLogin;
-  if (isLogin || to.name === "Login") {
-    next();
-  } else {
-    next({ name: "Login" });
-  }
+  isLogin || to.name === "Login" ? next() : next({ name: "Login" });
 });
 
 export default router;
