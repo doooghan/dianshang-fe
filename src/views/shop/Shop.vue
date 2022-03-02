@@ -1,19 +1,18 @@
 <template>
-  <div class="search">
-    <div class="search__back iconfont"
-         @click="handleBackClick">&#xe601;</div>
-    <div class="search__content">
-      <div class="search__content__icon iconfont">&#xe600;</div>
-      <input type="text"
-             class="search__content__input"
-             placeholder="请输入商品名称搜索">
-    </div>
-  </div>
   <div class="wrapper">
+    <div class="search">
+      <div class="search__back iconfont"
+           @click="handleBackClick">&#xe601;</div>
+      <div class="search__content">
+        <div class="search__content__icon iconfont">&#xe600;</div>
+        <input type="text"
+               class="search__content__input"
+               placeholder="请输入商品名称搜索">
+      </div>
+    </div>
     <ShopInfo :item="item"
               :hideBorder="true" />
   </div>
-
 </template>
 
 <script>
@@ -42,12 +41,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../style/viriables.scss';
 .wrapper {
   padding: 0 0.18rem;
 }
 .search {
   display: flex;
-  margin: 0.16rem 0.18rem;
+  margin: 0.14rem 0 0.04rem 0;
   line-height: 0.32rem;
   &__back {
     width: 0.3rem;
@@ -57,11 +57,12 @@ export default {
   &__content {
     display: flex;
     flex: 1;
-    background: #f5f5f5;
+    background: $search-bgColor;
     border-radius: 0.16rem;
     &__icon {
       width: 0.44rem;
       text-align: center;
+      color: $search-fontcolor;
     }
     &__input {
       display: block;
@@ -72,9 +73,9 @@ export default {
       border: none;
       outline: none;
       font-size: 0.14rem;
-      color: #333;
+      color: $content-fontcolor;
       &::placeholder {
-        color: #333;
+        color: $content-fontcolor;
       }
     }
   }
