@@ -11,30 +11,47 @@
       </div>
     </div>
     <ShopInfo :item="item"
-              :hideBorder="true" />
+              :hideBorder="true"
+              v-show="item.imgUrl" />
   </div>
 </template>
 
 <script>
-import { useRouter } from 'vue-router'
+import { reactive, toRefs } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { get } from '../../utils/request'
 import ShopInfo from '../../components/ShopInfo.vue'
+
+// 获取当前商铺信息
+const useShopInfoEffect = () => {
+  const route = useRoute() // 表示路径的信息
+  const data = reactive({ item: {} })
+  const getItemData = async () => {
+    const result = await get(`/api/shop/${route.params.id}`)
+    if (result?.errno === 0 && result?.data) {
+      data.item = result.data
+    }
+  }
+  const { item } = toRefs(data)
+  return { item, getItemData }
+}
+
+// 点击回退逻辑
+const useBackRouterEffect = () => {
+  const router = useRouter() // 表示路由的信息
+  const handleBackClick = () => {
+    router.back()
+  }
+  return handleBackClick
+}
+
 export default {
   name: 'Shop',
   components: { ShopInfo },
   setup() {
-    const router = useRouter()
-    const item = {
-      expressLimit: 0,
-      expressPrice: 5,
-      imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
-      name: '沃尔玛',
-      sales: 10000,
-      slogan: 'VIP尊享满89元减4元运费券',
-      _id: '1',
-    }
-    const handleBackClick = () => {
-      router.back()
-    }
+    const { item, getItemData } = useShopInfoEffect()
+    const handleBackClick = useBackRouterEffect()
+    getItemData()
     return { item, handleBackClick }
   },
 }
