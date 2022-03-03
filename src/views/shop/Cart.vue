@@ -41,13 +41,16 @@ export default {}
     &__tag {
       position: absolute;
       top: 0.04rem;
-      right: 0.2rem;
-      width: 0.2rem;
+      left: 0.46rem;
+      padding: 0 0.04rem;
+      min-width: 0.2rem;
       height: 0.2rem;
+      line-height: 0.2rem;
       background: $hightlight-fontcolor;
       color: $bgColor;
       transform: scale(0.5);
-      border-radius: 50%;
+      transform-origin: left center;
+      border-radius: 0.1rem;
       font-size: 0.12rem;
       text-align: center;
     }
