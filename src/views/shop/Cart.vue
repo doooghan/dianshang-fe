@@ -5,6 +5,9 @@
                 :key="item._id">
         <div class="product__item"
              v-if="item.count>0">
+          <div class="product__item__checked iconfont"
+               v-html="item.check ? '&#xe618;' : '&#xe6f7;' "
+               @click="()=>changeCartItemChecked(shopId, item._id)"></div>
           <img :src="item.imgUrl"
                alt=""
                class="
@@ -54,9 +57,13 @@ const useCartEffect = (shopId) => {
   const total = computed(() => {
     const productList = cartList[shopId]
     let count = 0
-    if (cartList) {
+    if (productList) {
       for (const i in productList) {
-        count += productList[i].count
+        const product = productList[i]
+        // count += product.count
+        if (product.check) {
+          count += product.count
+        }
       }
     }
     return count
@@ -65,9 +72,12 @@ const useCartEffect = (shopId) => {
   const price = computed(() => {
     const productList = cartList[shopId]
     let count = 0
-    if (cartList) {
+    if (productList) {
       for (const i in productList) {
-        count += productList[i].count * productList[i].price
+        const product = productList[i]
+        if (product.check) {
+          count += product.count * product.price
+        }
       }
     }
     return count.toFixed(2)
@@ -79,7 +89,17 @@ const useCartEffect = (shopId) => {
     return productList
   })
 
-  return { total, price, productList, changeCartItemInfo }
+  const changeCartItemChecked = (shopId, productId) => {
+    store.commit('changeCartItemChecked', { shopId, productId })
+  }
+
+  return {
+    total,
+    price,
+    productList,
+    changeCartItemInfo,
+    changeCartItemChecked,
+  }
 }
 
 export default {
@@ -87,10 +107,22 @@ export default {
   setup() {
     const route = useRoute()
     const shopId = route.params.id
-    const { total, price, productList, changeCartItemInfo } =
-      useCartEffect(shopId)
+    const {
+      total,
+      price,
+      productList,
+      changeCartItemInfo,
+      changeCartItemChecked,
+    } = useCartEffect(shopId)
 
-    return { total, price, productList, changeCartItemInfo, shopId }
+    return {
+      total,
+      price,
+      productList,
+      changeCartItemInfo,
+      shopId,
+      changeCartItemChecked,
+    }
   },
 }
 </script>
@@ -114,6 +146,13 @@ export default {
     padding: 0.12rem 0;
     margin: 0 0.16rem;
     border-bottom: 0.01rem solid $content-bgColor;
+    &__checked {
+      width: 0.19rem;
+      height: 0.19rem;
+      color: #0091ff;
+      line-height: 0.46rem;
+      margin-right: 0.16rem;
+    }
     &__img {
       width: 0.46rem;
       height: 0.46rem;
