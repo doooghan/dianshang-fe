@@ -8,7 +8,6 @@ export default createStore({
   mutations: {
     changeCartItemInfo(state, payload) {
       const { shopId, productId, productInfo } = payload;
-      // console.log(shopId, productId, productInfo);
       let shopInfo = state.cartList[shopId];
       if (!shopInfo) {
         shopInfo = {};
@@ -25,7 +24,6 @@ export default createStore({
 
       shopInfo[productId] = product;
       state.cartList[shopId] = shopInfo;
-      console.log(state);
     },
   },
   actions: {},
