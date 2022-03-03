@@ -49,6 +49,7 @@ import { useCommonCartEffect } from './commonCartEffect'
 const useCartEffect = (shopId) => {
   const store = useStore()
   const cartList = store.state.cartList
+  const { changeCartItemInfo } = useCommonCartEffect()
 
   const total = computed(() => {
     const productList = cartList[shopId]
@@ -78,7 +79,7 @@ const useCartEffect = (shopId) => {
     return productList
   })
 
-  return { total, price, productList }
+  return { total, price, productList, changeCartItemInfo }
 }
 
 export default {
@@ -86,8 +87,8 @@ export default {
   setup() {
     const route = useRoute()
     const shopId = route.params.id
-    const { total, price, productList } = useCartEffect(shopId)
-    const { changeCartItemInfo } = useCommonCartEffect()
+    const { total, price, productList, changeCartItemInfo } =
+      useCartEffect(shopId)
 
     return { total, price, productList, changeCartItemInfo, shopId }
   },
