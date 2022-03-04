@@ -1,6 +1,9 @@
 <template>
+  <div class="mask"
+       v-if="showCart"></div>
   <div class="cart">
-    <div class="product">
+    <div class="product"
+         v-if="showCart">
       <div class="product__header">
         <div class="product__header__all"
              @click="()=>setCartItemsChecked(shopId)">
@@ -39,7 +42,8 @@
       </template>
     </div>
     <div class="check">
-      <div class="check__icon">
+      <div class="check__icon"
+           @click="handleCartShowChange">
         <img src="http://www.dell-lee.com/imgs/vue3/basket.png"
              alt=""
              class="check__icon__img">
@@ -52,7 +56,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useCommonCartEffect } from './commonCartEffect'
@@ -138,6 +142,12 @@ export default {
   setup() {
     const route = useRoute()
     const shopId = route.params.id
+
+    const showCart = ref(false)
+    const handleCartShowChange = () => {
+      showCart.value = !showCart.value
+    }
+
     const {
       total,
       price,
@@ -159,6 +169,8 @@ export default {
       cleanCartProducts,
       allChecked,
       setCartItemsChecked,
+      showCart,
+      handleCartShowChange,
     }
   },
 }
@@ -167,11 +179,22 @@ export default {
 <style lang="scss" scoped>
 @import '../../style/viriables.scss';
 @import '../../style/mixins.scss';
+.mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
 .cart {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 2;
+  background-color: #fff;
 }
 .product {
   overflow-y: scroll;
