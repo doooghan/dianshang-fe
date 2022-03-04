@@ -1,6 +1,11 @@
 <template>
   <div class="cart">
     <div class="product">
+      <div class="product__header">
+        <div class="product__header__all">全选</div>
+        <div class="product__header__clear"
+             @click="()=>cleanCartProducts(shopId)">清空购物车</div>
+      </div>
       <template v-for="item in productList"
                 :key="item._id">
         <div class="product__item"
@@ -10,8 +15,7 @@
                @click="()=>changeCartItemChecked(shopId, item._id)"></div>
           <img :src="item.imgUrl"
                alt=""
-               class="
-             product__item__img">
+               class="product__item__img">
           <div class="product__item__detail">
             <h4 class="product__item__title">{{item.name}}</h4>
             <p class="product__item__price">
@@ -60,7 +64,6 @@ const useCartEffect = (shopId) => {
     if (productList) {
       for (const i in productList) {
         const product = productList[i]
-        // count += product.count
         if (product.check) {
           count += product.count
         }
@@ -92,6 +95,9 @@ const useCartEffect = (shopId) => {
   const changeCartItemChecked = (shopId, productId) => {
     store.commit('changeCartItemChecked', { shopId, productId })
   }
+  const cleanCartProducts = (shopId) => {
+    store.commit('cleanCartProducts', { shopId })
+  }
 
   return {
     total,
@@ -99,6 +105,7 @@ const useCartEffect = (shopId) => {
     productList,
     changeCartItemInfo,
     changeCartItemChecked,
+    cleanCartProducts,
   }
 }
 
@@ -113,6 +120,7 @@ export default {
       productList,
       changeCartItemInfo,
       changeCartItemChecked,
+      cleanCartProducts,
     } = useCartEffect(shopId)
 
     return {
@@ -122,6 +130,7 @@ export default {
       changeCartItemInfo,
       shopId,
       changeCartItemChecked,
+      cleanCartProducts,
     }
   },
 }
@@ -140,6 +149,21 @@ export default {
   overflow-y: scroll;
   flex: 1;
   background-color: #fff;
+  &__header {
+    display: flex;
+    line-height: 0.52rem;
+    border-bottom: 1px solid #f1f1f1;
+    &__all {
+      width: 0.64rem;
+    }
+    &__clear {
+      flex: 1;
+      font-size: 0.14rem;
+      color: #333333;
+      text-align: right;
+      margin-right: 0.16rem;
+    }
+  }
   &__item {
     position: relative;
     display: flex;

@@ -34,6 +34,11 @@ export default createStore({
       const product = state.cartList[shopId][productId];
       product.check = !product.check;
     },
+
+    cleanCartProducts(state, payload) {
+      const { shopId } = payload;
+      state.cartList[shopId] = {};
+    },
   },
   actions: {},
   modules: {},
