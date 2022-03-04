@@ -1,6 +1,7 @@
 <template>
   <div class="mask"
-       v-if="showCart"></div>
+       v-if="showCart"
+       @click="handleCartShowChange"></div>
   <div class="cart">
     <div class="product"
          v-if="showCart">
@@ -8,18 +9,20 @@
         <div class="product__header__all"
              @click="()=>setCartItemsChecked(shopId)">
           <span class="product__header__all__icon iconfont"
-                v-html="allChecked ? '&#xe618;' : '&#xe6f7;'"></span>
+                v-html="allChecked ? '&#xe618;' : '&#xe61a;'"></span>
           全选
         </div>
-        <div class="product__header__clear"
-             @click="()=>cleanCartProducts(shopId)">清空购物车</div>
+        <div class="product__header__clear">
+          <span class="product__header__clear__btn"
+                @click="()=>{cleanCartProducts(shopId); handleCartShowChange()}">清空购物车</span>
+        </div>
       </div>
       <template v-for="item in productList"
                 :key="item._id">
         <div class="product__item"
              v-if="item.count>0">
           <div class="product__item__checked iconfont"
-               v-html="item.check ? '&#xe618;' : '&#xe6f7;' "
+               v-html="item.check ? '&#xe618;' : '&#xe61a;' "
                @click="()=>changeCartItemChecked(shopId, item._id)"></div>
           <img :src="item.imgUrl"
                alt=""
@@ -137,16 +140,20 @@ const useCartEffect = (shopId) => {
   }
 }
 
+// 展示隐藏购物车逻辑
+const toggleCartEffect = () => {
+  const showCart = ref(false)
+  const handleCartShowChange = () => {
+    showCart.value = !showCart.value
+  }
+  return { showCart, handleCartShowChange }
+}
+
 export default {
   name: 'Cart',
   setup() {
     const route = useRoute()
     const shopId = route.params.id
-
-    const showCart = ref(false)
-    const handleCartShowChange = () => {
-      showCart.value = !showCart.value
-    }
 
     const {
       total,
@@ -158,6 +165,8 @@ export default {
       allChecked,
       setCartItemsChecked,
     } = useCartEffect(shopId)
+
+    const { showCart, handleCartShowChange } = toggleCartEffect()
 
     return {
       total,
@@ -194,29 +203,34 @@ export default {
   right: 0;
   bottom: 0;
   z-index: 2;
-  background-color: #fff;
+  background-color: $bgColor;
 }
 .product {
   overflow-y: scroll;
   flex: 1;
-  background-color: #fff;
+  background-color: $bgColor;
   &__header {
     display: flex;
     line-height: 0.52rem;
-    border-bottom: 1px solid #f1f1f1;
+    border-bottom: 1px solid $content-bgColor;
     font-size: 0.14rem;
-    color: #333333;
+    color: $content-fontcolor;
     &__all {
       width: 0.64rem;
       margin-left: 0.16rem;
       &__icon {
-        color: #0091ff;
+        color: $btn-bgColor;
+        vertical-align: top;
+        margin-right: 0.1rem;
       }
     }
     &__clear {
       flex: 1;
       text-align: right;
       margin-right: 0.16rem;
+      &__btn {
+        display: inline-block;
+      }
     }
   }
   &__item {
@@ -228,7 +242,7 @@ export default {
     &__checked {
       width: 0.19rem;
       height: 0.19rem;
-      color: #0091ff;
+      color: $btn-bgColor;
       line-height: 0.46rem;
       margin-right: 0.16rem;
     }
