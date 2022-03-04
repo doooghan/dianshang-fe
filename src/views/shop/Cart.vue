@@ -2,7 +2,12 @@
   <div class="cart">
     <div class="product">
       <div class="product__header">
-        <div class="product__header__all">全选</div>
+        <div class="product__header__all"
+             @click="()=>setCartItemsChecked(shopId)">
+          <span class="product__header__all__icon iconfont"
+                v-html="allChecked ? '&#xe618;' : '&#xe6f7;'"></span>
+          全选
+        </div>
         <div class="product__header__clear"
              @click="()=>cleanCartProducts(shopId)">清空购物车</div>
       </div>
@@ -92,11 +97,28 @@ const useCartEffect = (shopId) => {
     return productList
   })
 
+  const allChecked = computed(() => {
+    const productList = cartList[shopId]
+    let result = true
+    if (productList) {
+      for (const i in productList) {
+        const product = productList[i]
+        if (product.count > 0 && !product.check) {
+          result = false
+        }
+      }
+    }
+    return result
+  })
+
   const changeCartItemChecked = (shopId, productId) => {
     store.commit('changeCartItemChecked', { shopId, productId })
   }
   const cleanCartProducts = (shopId) => {
     store.commit('cleanCartProducts', { shopId })
+  }
+  const setCartItemsChecked = (shopId) => {
+    store.commit('setCartItemsChecked', { shopId })
   }
 
   return {
@@ -106,6 +128,8 @@ const useCartEffect = (shopId) => {
     changeCartItemInfo,
     changeCartItemChecked,
     cleanCartProducts,
+    allChecked,
+    setCartItemsChecked,
   }
 }
 
@@ -121,6 +145,8 @@ export default {
       changeCartItemInfo,
       changeCartItemChecked,
       cleanCartProducts,
+      allChecked,
+      setCartItemsChecked,
     } = useCartEffect(shopId)
 
     return {
@@ -131,6 +157,8 @@ export default {
       shopId,
       changeCartItemChecked,
       cleanCartProducts,
+      allChecked,
+      setCartItemsChecked,
     }
   },
 }
@@ -153,13 +181,17 @@ export default {
     display: flex;
     line-height: 0.52rem;
     border-bottom: 1px solid #f1f1f1;
+    font-size: 0.14rem;
+    color: #333333;
     &__all {
       width: 0.64rem;
+      margin-left: 0.16rem;
+      &__icon {
+        color: #0091ff;
+      }
     }
     &__clear {
       flex: 1;
-      font-size: 0.14rem;
-      color: #333333;
       text-align: right;
       margin-right: 0.16rem;
     }

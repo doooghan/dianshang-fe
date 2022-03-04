@@ -39,6 +39,17 @@ export default createStore({
       const { shopId } = payload;
       state.cartList[shopId] = {};
     },
+
+    setCartItemsChecked(state, payload) {
+      const { shopId } = payload;
+      const products = state.cartList[shopId];
+      if (products) {
+        for (const key in products) {
+          const product = products[key];
+          product.check = true;
+        }
+      }
+    },
   },
   actions: {},
   modules: {},
