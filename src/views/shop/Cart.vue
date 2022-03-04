@@ -53,7 +53,11 @@
         <div class="check__icon__tag">{{total}}</div>
       </div>
       <div class="check__info">总计：<span class="check__info__price">&yen; {{price}}</span></div>
-      <div class="check__btn">去结算</div>
+      <div class="check__btn">
+        <router-link :to="{name:'Home'}">
+          去结算
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -71,7 +75,7 @@ const useCartEffect = (shopId) => {
   const { changeCartItemInfo } = useCommonCartEffect()
 
   const total = computed(() => {
-    const productList = cartList[shopId]
+    const productList = cartList[shopId]?.productList
     let count = 0
     if (productList) {
       for (const i in productList) {
@@ -85,7 +89,7 @@ const useCartEffect = (shopId) => {
   })
 
   const price = computed(() => {
-    const productList = cartList[shopId]
+    const productList = cartList[shopId]?.productList
     let count = 0
     if (productList) {
       for (const i in productList) {
@@ -99,13 +103,12 @@ const useCartEffect = (shopId) => {
   })
 
   const productList = computed(() => {
-    const productList = cartList[shopId] || []
-    console.log(store.state)
+    const productList = cartList[shopId]?.productList || []
     return productList
   })
 
   const allChecked = computed(() => {
-    const productList = cartList[shopId]
+    const productList = cartList[shopId]?.productList
     let result = true
     if (productList) {
       for (const i in productList) {
@@ -349,8 +352,11 @@ export default {
     background: #4fb0f9;
     line-height: 0.49rem;
     font-size: 0.14rem;
-    color: $bgColor;
     text-align: center;
+    a {
+      color: $bgColor;
+      text-decoration: none;
+    }
   }
 }
 </style>
