@@ -9,7 +9,7 @@
         <div class="product__header__all"
              @click="()=>setCartItemsChecked(shopId)">
           <span class="product__header__all__icon iconfont"
-                v-html="allChecked ? '&#xe618;' : '&#xe61a;'"></span>
+                v-html="calculations.allChecked ? '&#xe618;' : '&#xe61a;'"></span>
           全选
         </div>
         <div class="product__header__clear">
@@ -50,9 +50,9 @@
         <img src="http://www.dell-lee.com/imgs/vue3/basket.png"
              alt=""
              class="check__icon__img">
-        <div class="check__icon__tag">{{total}}</div>
+        <div class="check__icon__tag">{{calculations.total}}</div>
       </div>
-      <div class="check__info">总计：<span class="check__info__price">&yen; {{price}}</span></div>
+      <div class="check__info">总计：<span class="check__info__price">&yen; {{calculations.price}}</span></div>
       <div class="check__btn">
         <router-link :to="{name:'Home'}">
           去结算
@@ -71,54 +71,30 @@ import { useCommonCartEffect } from './commonCartEffect'
 // 购物车逻辑
 const useCartEffect = (shopId) => {
   const store = useStore()
-  const cartList = store.state.cartList
-  const { changeCartItemInfo } = useCommonCartEffect()
+  const { cartList, changeCartItemInfo } = useCommonCartEffect()
 
-  const total = computed(() => {
+  const calculations = computed(() => {
     const productList = cartList[shopId]?.productList
-    let count = 0
+    const result = { total: 0, price: 0, allChecked: true }
     if (productList) {
       for (const i in productList) {
         const product = productList[i]
         if (product.check) {
-          count += product.count
+          result.total += product.count
+          result.price += product.count * product.price
+        }
+        if (product.count > 0 && !product.check) {
+          result.allChecked = false
         }
       }
     }
-    return count
-  })
-
-  const price = computed(() => {
-    const productList = cartList[shopId]?.productList
-    let count = 0
-    if (productList) {
-      for (const i in productList) {
-        const product = productList[i]
-        if (product.check) {
-          count += product.count * product.price
-        }
-      }
-    }
-    return count.toFixed(2)
+    result.price = result.price.toFixed(2)
+    return result
   })
 
   const productList = computed(() => {
     const productList = cartList[shopId]?.productList || []
     return productList
-  })
-
-  const allChecked = computed(() => {
-    const productList = cartList[shopId]?.productList
-    let result = true
-    if (productList) {
-      for (const i in productList) {
-        const product = productList[i]
-        if (product.count > 0 && !product.check) {
-          result = false
-        }
-      }
-    }
-    return result
   })
 
   const changeCartItemChecked = (shopId, productId) => {
@@ -132,13 +108,11 @@ const useCartEffect = (shopId) => {
   }
 
   return {
-    total,
-    price,
+    calculations,
     productList,
     changeCartItemInfo,
     changeCartItemChecked,
     cleanCartProducts,
-    allChecked,
     setCartItemsChecked,
   }
 }
@@ -159,27 +133,23 @@ export default {
     const shopId = route.params.id
 
     const {
-      total,
-      price,
+      calculations,
       productList,
       changeCartItemInfo,
       changeCartItemChecked,
       cleanCartProducts,
-      allChecked,
       setCartItemsChecked,
     } = useCartEffect(shopId)
 
     const { showCart, handleCartShowChange } = toggleCartEffect()
 
     return {
-      total,
-      price,
+      calculations,
       productList,
       changeCartItemInfo,
       shopId,
       changeCartItemChecked,
       cleanCartProducts,
-      allChecked,
       setCartItemsChecked,
       showCart,
       handleCartShowChange,

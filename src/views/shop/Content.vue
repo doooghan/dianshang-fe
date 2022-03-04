@@ -25,7 +25,7 @@
         <div class="product__number">
           <div class="product__number__minus"
                @click="()=>{changeCartItem(shopId, item._id, item, -1, shopName)}">-</div>
-          {{cartList?.[shopId]?.productList?.[item._id]?.count || 0}}
+          {{getProductCartCount(shopId, item._id)}}
           <div class="product__number__plus"
                @click="()=>{changeCartItem(shopId, item._id, item, 1, shopName)}">+</div>
         </div>
@@ -76,24 +76,34 @@ const useCurrentListEffect = (currentTab, shopId) => {
   return { list }
 }
 
+const useCartEffect = () => {
+  const { cartList, changeCartItemInfo } = useCommonCartEffect()
+
+  const store = useStore()
+
+  const changeShopName = (shopId, shopName) => {
+    store.commit('changeShopName', { shopId, shopName })
+  }
+  const changeCartItem = (shopId, productId, item, num, shopName) => {
+    changeCartItemInfo(shopId, productId, item, num)
+    changeShopName(shopId, shopName)
+  }
+  const getProductCartCount = (shopId, productId) => {
+    return cartList?.[shopId]?.productList?.[productId]?.count || 0
+  }
+
+  return { cartList, changeCartItem, getProductCartCount }
+}
+
 export default {
   name: 'Content',
   props: ['shopName'],
   setup() {
     const route = useRoute()
-    const store = useStore()
     const shopId = route.params.id
     const { currentTab, handleTabClick } = useTabEffect()
     const { list } = useCurrentListEffect(currentTab, shopId)
-    const { changeCartItemInfo, cartList } = useCommonCartEffect()
-
-    const changeShopName = (shopId, shopName) => {
-      store.commit('changeShopName', { shopId, shopName })
-    }
-    const changeCartItem = (shopId, productId, item, num, shopName) => {
-      changeCartItemInfo(shopId, productId, item, num)
-      changeShopName(shopId, shopName)
-    }
+    const { cartList, changeCartItem, getProductCartCount } = useCartEffect()
 
     return {
       categories,
@@ -101,9 +111,9 @@ export default {
       handleTabClick,
       list,
       shopId,
-      changeCartItemInfo,
       cartList,
       changeCartItem,
+      getProductCartCount,
     }
   },
 }
