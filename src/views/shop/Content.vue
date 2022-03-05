@@ -168,7 +168,7 @@ export default {
       line-height: 0.2rem;
       font-size: 0.14rem;
       color: $content-fontcolor;
-      @include ellipses;
+      @include ellipsis;
     }
     &__sales {
       margin: 0.06rem 0;

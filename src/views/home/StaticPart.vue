@@ -55,7 +55,7 @@ export default {
   padding: 0.16rem 0.2rem 0.16rem 0;
   font-size: 0.16rem;
   line-height: 0.22rem;
-  @include ellipses;
+  @include ellipsis;
   color: $content-fontcolor;
   .position__icon {
     position: relative;

@@ -14,9 +14,30 @@ export const useCommonCartEffect = (shopId) => {
     return productList;
   });
 
+  // shopname 这么写是因为把 shopname 变成了响应式， 否则普通的空字符串不具备响应式
   const shopName = computed(() => {
-    const shopName = cartList[shopId].shopName || "";
+    const shopName = cartList[shopId]?.shopName || "";
     return shopName;
   });
-  return { changeCartItemInfo, cartList, productList, shopName };
+
+  const calculations = computed(() => {
+    const productList = cartList[shopId]?.productList;
+    const result = { total: 0, price: 0, allChecked: true };
+    if (productList) {
+      for (const i in productList) {
+        const product = productList[i];
+        if (product.check) {
+          result.total += product.count;
+          result.price += product.count * product.price;
+        }
+        if (product.count > 0 && !product.check) {
+          result.allChecked = false;
+        }
+      }
+    }
+    result.price = result.price.toFixed(2);
+    return result;
+  });
+
+  return { changeCartItemInfo, cartList, productList, shopName, calculations };
 };

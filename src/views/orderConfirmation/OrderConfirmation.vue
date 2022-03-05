@@ -2,7 +2,8 @@
   <div class="wrapper">
     <div class="top">
       <div class="top__header">
-        <div class="top__header__back iconfont">&#xe601;</div>确认订单
+        <div class="top__header__back iconfont"
+             @click="handleBackClick">&#xe601;</div>确认订单
       </div>
       <div class="top__receiver">
         <div class="top__receiver__title">收货地址</div>
@@ -15,46 +16,57 @@
       </div>
     </div>
     <div class="products">
-      <div class="products__title">{{shopName}}</div>
-      <div class="products__list">
-        <div class="products__item"
-             v-for="item in productList"
-             :key="item._id">
-          <img :src=item.imgUrl
-               alt=""
-               class="products__item__img">
-          <div class="products__item__detail">
-            <h4 class="products__item__title">{{item.name}}</h4>
-            <p class="products__item__price">
-              <span>
-                <span class="products__item__yen">&yen;</span>
-                {{item.price}} x {{item.count}}
-              </span>
-              <span class="products__item__total">
-                <span class="products__item__yen">&yen;</span>
-                {{item.price * item.count}}
-              </span>
-            </p>
-          </div>
+      <div class="products__title">
+        {{shopName}}
+      </div>
+      <div class="products__wrapper">
+        <div class="products__list">
+          <template v-for="item in productList"
+                    :key="item._id">
+            <div v-if="item.count > 0"
+                 class="products__item">
+              <img class="products__item__img"
+                   :src="item.imgUrl" />
+              <div class="products__item__detail">
+                <h4 class="products__item__title">{{item.name}}</h4>
+                <p class="products__item__price">
+                  <span>
+                    <span class="products__item__yen">&yen; </span>
+                    {{item.price}} x {{item.count}}
+                  </span>
+                  <span class="products__item__total">
+                    <span class="products__item__yen">&yen; </span>
+                    {{item.price * item.count}}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </template>
         </div>
       </div>
+    </div>
+    <div class="order">
+      <div class="order__price">实付金额 <b>¥{{calculations.price}}</b></div>
+      <div class="order__btn">提交订单</div>
     </div>
   </div>
 </template>
 
 <script>
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useCommonCartEffect } from '../../effects/cartEffects'
 
 export default {
   name: 'OrderConfirmation',
   setup() {
+    const router = useRouter()
     const route = useRoute()
     const shopId = route.params.id
-
-    const { productList, shopName } = useCommonCartEffect(shopId)
-
-    return { productList, shopName }
+    const { shopName, calculations, productList } = useCommonCartEffect(shopId)
+    const handleBackClick = () => {
+      router.back()
+    }
+    return { shopName, calculations, productList, handleBackClick }
   },
 }
 </script>
@@ -65,11 +77,12 @@ export default {
 
 .wrapper {
   position: absolute;
-  top: 0;
-  bottom: 0;
   left: 0;
   right: 0;
+  top: 0;
+  bottom: 0;
   background-color: #eee;
+  overflow-y: scroll;
 }
 .top {
   position: relative;
@@ -86,8 +99,8 @@ export default {
     font-size: 0.16rem;
     &__back {
       position: absolute;
+      left: 0.18rem;
       font-size: 0.22rem;
-      padding-left: 0.18rem;
     }
   }
   &__receiver {
@@ -96,27 +109,27 @@ export default {
     right: 0.18rem;
     bottom: 0;
     height: 1.11rem;
-    background-color: #fff;
-    border-radius: 4px;
+    background: #fff;
+    border-radius: 0.04rem;
     &__title {
-      padding: 0.16rem 0 0.14rem 0.16rem;
       line-height: 0.22rem;
+      padding: 0.16rem 0 0.14rem 0.16rem;
       font-size: 0.16rem;
-      color: #333333;
+      color: #333;
     }
     &__address {
-      padding: 0 0.04rem 0 0.16rem;
       line-height: 0.2rem;
-      font-size: 14px;
-      color: #333333;
+      padding: 0 0.4rem 0 0.16rem;
+      font-size: 0.14rem;
+      color: #333;
     }
     &__info {
       padding: 0.06rem 0 0 0.16rem;
-      font-size: 12px;
-      color: #666666;
-      line-height: 0.18rem;
       &__name {
         margin-right: 0.06rem;
+        line-height: 0.18rem;
+        font-size: 0.12rem;
+        color: #666;
       }
     }
     &__icon {
@@ -130,17 +143,29 @@ export default {
   }
 }
 .products {
-  margin: 0.16rem 0.18rem 0.55rem 0.18rem; // 下margin是为了空出提交订单的位置
-  background-color: #fff;
+  margin: 0.16rem 0.18rem 0.1rem 0.18rem;
+  background: #fff;
   &__title {
-    padding: 0.16rem 0 0 0.16rem;
+    padding: 0.16rem;
     font-size: 0.16rem;
-    color: #333333;
+    color: #333;
+  }
+  &__wrapper {
+    overflow-y: scroll;
+    margin: 0 0.18rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.6rem;
+    top: 2.6rem;
+  }
+  &__list {
+    background: #fff;
   }
   &__item {
     position: relative;
     display: flex;
-    padding: 0.16rem;
+    padding: 0 0.16rem 0.16rem 0.16rem;
     &__img {
       width: 0.46rem;
       height: 0.46rem;
@@ -148,21 +173,20 @@ export default {
     }
     &__detail {
       flex: 1;
-      // overflow: hidden;
     }
     &__title {
       margin: 0;
       line-height: 0.2rem;
       font-size: 0.14rem;
       color: $content-fontcolor;
-      @include ellipses;
+      @include ellipsis;
     }
     &__price {
       display: flex;
       margin: 0.06rem 0 0 0;
+      line-height: 0.2rem;
       font-size: 0.14rem;
       color: $hightlight-fontcolor;
-      line-height: 0.2rem;
     }
     &__total {
       flex: 1;
@@ -172,6 +196,30 @@ export default {
     &__yen {
       font-size: 0.12rem;
     }
+  }
+}
+
+.order {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  height: 0.49rem;
+  line-height: 0.49rem;
+  background: #fff;
+  &__price {
+    flex: 1;
+    text-indent: 0.24rem;
+    font-size: 0.14rem;
+    color: #333;
+  }
+  &__btn {
+    width: 0.98rem;
+    background: #4fb0f9;
+    color: #fff;
+    text-align: center;
+    font-size: 0.14rem;
   }
 }
 </style>

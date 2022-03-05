@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useCommonCartEffect } from '../../effects/cartEffects'
@@ -71,27 +71,8 @@ import { useCommonCartEffect } from '../../effects/cartEffects'
 // 购物车逻辑
 const useCartEffect = (shopId) => {
   const store = useStore()
-  const { cartList, changeCartItemInfo, productList } =
+  const { calculations, changeCartItemInfo, productList } =
     useCommonCartEffect(shopId)
-
-  const calculations = computed(() => {
-    const productList = cartList[shopId]?.productList
-    const result = { total: 0, price: 0, allChecked: true }
-    if (productList) {
-      for (const i in productList) {
-        const product = productList[i]
-        if (product.check) {
-          result.total += product.count
-          result.price += product.count * product.price
-        }
-        if (product.count > 0 && !product.check) {
-          result.allChecked = false
-        }
-      }
-    }
-    result.price = result.price.toFixed(2)
-    return result
-  })
 
   const changeCartItemChecked = (shopId, productId) => {
     store.commit('changeCartItemChecked', { shopId, productId })
@@ -228,7 +209,7 @@ export default {
       line-height: 0.2rem;
       font-size: 0.14rem;
       color: $content-fontcolor;
-      @include ellipses;
+      @include ellipsis;
     }
     &__price {
       margin: 0.06rem 0 0 0;
