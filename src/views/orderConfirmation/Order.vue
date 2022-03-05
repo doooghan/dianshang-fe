@@ -51,7 +51,7 @@ const useMakeOrderEffect = (shopId, shopName, productList) => {
         if (!isCanceled) {
           store.commit('clearCartData', shopId)
         }
-        router.push({ name: 'Home' })
+        router.push({ name: 'OrderList' })
       }
     } catch (e) {
       // TODO 提示下单失败

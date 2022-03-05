@@ -16,6 +16,14 @@ const routes = [
       ),
   },
   {
+    path: "/orderList",
+    name: "OrderList",
+    component: () =>
+      import(
+        /* webpackChunkName: "orderList" */ "../views/orderList/OrderList"
+      ),
+  },
+  {
     path: "/cartList",
     name: "CartList",
     component: () =>
