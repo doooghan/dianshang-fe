@@ -10,8 +10,15 @@ export const useCommonCartEffect = (shopId) => {
   };
 
   const productList = computed(() => {
-    const productList = cartList[shopId]?.productList || [];
-    return productList;
+    const productList = cartList[shopId]?.productList || {};
+    const notEmptyProductList = {};
+    for (const i in productList) {
+      const product = productList[i];
+      if (product.count > 0) {
+        notEmptyProductList[i] = product;
+      }
+    }
+    return notEmptyProductList;
   });
 
   // shopname 这么写是因为把 shopname 变成了响应式， 否则普通的空字符串不具备响应式

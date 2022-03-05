@@ -1,10 +1,15 @@
 <template>
   <div class="order">
     <div class="order__price">实付金额 <b>¥{{calculations.price}}</b></div>
-    <div class="order__btn">提交订单</div>
+    <div class="order__btn"
+         @click="()=>handleSubmitClick(true)">提交订单</div>
   </div>
-  <div class="mask">
-    <div class="mask__content">
+  <div class="mask"
+       v-show="showConfirm"
+       @click="()=>handleSubmitClick(false)">
+    <div class="mask__content"
+         @click.stop>
+      <!--防止事件冒泡 -->
       <h4 class="mask__content__title">确认要离开收银台？</h4>
       <p class="mask__content__desc">请尽快完成支付，否则将被取消</p>
       <div class="mask__content__btns">
@@ -18,6 +23,7 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { post } from '../../utils/request'
@@ -29,6 +35,7 @@ export default {
     const router = useRouter()
     const route = useRoute()
     const store = useStore()
+    const showConfirm = ref(false)
     const shopId = parseInt(route.params.id, 10)
     const { productList, calculations, shopName } = useCommonCartEffect(shopId)
 
@@ -50,7 +57,9 @@ export default {
         })
         console.log(result)
         if (result?.errno === 0) {
-          store.commit('clearCartData', shopId)
+          if (!isCanceled) {
+            store.commit('clearCartData', shopId)
+          }
           router.push({ name: 'Home' })
         }
       } catch (e) {
@@ -59,7 +68,11 @@ export default {
       }
     }
 
-    return { calculations, handleConfirmOrder }
+    const handleSubmitClick = (status) => {
+      showConfirm.value = status
+    }
+
+    return { calculations, handleConfirmOrder, showConfirm, handleSubmitClick }
   },
 }
 </script>
