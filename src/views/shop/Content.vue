@@ -12,8 +12,7 @@
            :key="item._id">
         <img :src="item.imgUrl"
              alt=""
-             class="
-             product__item__img">
+             class="product__item__img">
         <div class="product__item__detail">
           <h4 class="product__item__title">{{item.name}}</h4>
           <p class="product__item__sales">月售 {{item.sales}} 件</p>
@@ -39,7 +38,7 @@ import { reactive, toRefs, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { get } from '../../utils/request'
-import { useCommonCartEffect } from './commonCartEffect'
+import { useCommonCartEffect } from '../../effects/cartEffects'
 
 const categories = [
   { name: '全部商品', tab: 'all' },
