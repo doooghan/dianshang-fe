@@ -9,31 +9,57 @@
       <p class="mask__content__desc">请尽快完成支付，否则将被取消</p>
       <div class="mask__content__btns">
         <div class="mask__content__btn mask__content__btn__first"
-             @click="handleCancelOrder">取消订单</div>
+             @click="()=>handleConfirmOrder(true)">取消订单</div>
         <div class="mask__content__btn mask__content__btn__last"
-             @click="handleConfirmOrder">确认支付</div>
+             @click="()=>handleConfirmOrder(false)">确认支付</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { post } from '../../utils/request'
 import { useCommonCartEffect } from '../../effects/cartEffects'
 
 export default {
   name: 'Order',
   setup() {
+    const router = useRouter()
     const route = useRoute()
-    const shopId = route.params.id
-    const { calculations } = useCommonCartEffect(shopId)
-    const handleCancelOrder = () => {
-      alert('handleCancelOrder')
+    const store = useStore()
+    const shopId = parseInt(route.params.id, 10)
+    const { productList, calculations, shopName } = useCommonCartEffect(shopId)
+
+    const handleConfirmOrder = async (isCanceled) => {
+      const products = []
+      for (const i in productList.value) {
+        const product = productList.value[i]
+        products.push({ id: parseInt(product._id, 10), num: product.count })
+      }
+      console.log(products)
+
+      try {
+        const result = await post('api/order', {
+          addressId: 1,
+          shopId,
+          shopName: shopName.value,
+          isCanceled,
+          products,
+        })
+        console.log(result)
+        if (result?.errno === 0) {
+          store.commit('clearCartData', shopId)
+          router.push({ name: 'Home' })
+        }
+      } catch (e) {
+        // TODO 提示下单失败
+        console.log(e)
+      }
     }
-    const handleConfirmOrder = () => {
-      alert('handleConfirmOrder')
-    }
-    return { calculations, handleCancelOrder, handleConfirmOrder }
+
+    return { calculations, handleConfirmOrder }
   },
 }
 </script>

@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO 尝试把show逻辑放在这里 -->
   <div class="toast">{{message}}</div>
 </template>
 
