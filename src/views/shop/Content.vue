@@ -1,32 +1,51 @@
 <template>
   <div class="content">
     <div class="category">
-      <div :class="{'category__item':true , 'category__item--active': item.tab === currentTab}"
-           v-for="item in categories"
-           :key="item.name"
-           @click="() => handleTabClick(item.tab)">{{item.name}}</div>
+      <div
+        :class="{
+          category__item: true,
+          'category__item--active': item.tab === currentTab,
+        }"
+        v-for="item in categories"
+        :key="item.name"
+        @click="() => handleTabClick(item.tab)"
+      >
+        {{ item.name }}
+      </div>
     </div>
     <div class="product">
-      <div class="product__item"
-           v-for="item in list"
-           :key="item._id">
-        <img :src="item.imgUrl"
-             alt=""
-             class="product__item__img">
+      <div class="product__item" v-for="item in list" :key="item._id">
+        <img :src="item.imgUrl" alt="" class="product__item__img" />
         <div class="product__item__detail">
-          <h4 class="product__item__title">{{item.name}}</h4>
-          <p class="product__item__sales">月售 {{item.sales}} 件</p>
+          <h4 class="product__item__title">{{ item.name }}</h4>
+          <p class="product__item__sales">月售 {{ item.sales }} 件</p>
           <p class="product__item__price">
-            <span class="product__item__yen">&yen;</span>{{item.price}}
-            <span class="product__item__origin">&yen;{{item.oldPrice}}</span>
+            <span class="product__item__yen">&yen;</span>{{ item.price }}
+            <span class="product__item__origin">&yen;{{ item.oldPrice }}</span>
           </p>
         </div>
         <div class="product__number">
-          <div class="product__number__minus"
-               @click="()=>{changeCartItem(shopId, item._id, item, -1, shopName)}">-</div>
-          {{getProductCartCount(shopId, item._id)}}
-          <div class="product__number__plus"
-               @click="()=>{changeCartItem(shopId, item._id, item, 1, shopName)}">+</div>
+          <span
+            class="product__number__minus iconfont"
+            @click="
+              () => {
+                changeCartItem(shopId, item._id, item, -1, shopName)
+              }
+            "
+          >
+            &#xe780;
+          </span>
+          {{ getProductCartCount(shopId, item._id) }}
+          <span
+            class="product__number__plus iconfont"
+            @click="
+              () => {
+                changeCartItem(shopId, item._id, item, 1, shopName)
+              }
+            "
+          >
+            &#xe845;
+          </span>
         </div>
       </div>
     </div>
@@ -196,25 +215,20 @@ export default {
       position: absolute;
       right: 0;
       bottom: 0.12rem;
-      &__minus,
-      &__plus {
-        display: inline-block;
-        width: 0.2rem;
-        height: 0.2rem;
-        border-radius: 50%;
-        font-size: 0.2rem;
-        line-height: 0.17rem;
-        text-align: center;
-      }
+      line-height: 0.2rem;
       &__minus {
-        border: 0.01rem solid $medium-fontcolor;
+        position: relative;
+        top: 0.02rem;
         color: $medium-fontcolor;
         margin-right: 0.05rem;
+        font-size: 0.2rem;
       }
       &__plus {
-        color: $bgColor;
-        background-color: $btn-bgColor;
+        position: relative;
+        top: 0.02rem;
+        color: $btn-bgColor;
         margin-left: 0.05rem;
+        font-size: 0.2rem;
       }
     }
   }

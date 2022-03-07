@@ -1,31 +1,34 @@
 <template>
   <div class="wrapper">
-    <img src="http://www.dell-lee.com/imgs/vue3/user.png"
-         alt=""
-         class="wrapper__img" />
+    <img
+      src="http://www.dell-lee.com/imgs/vue3/user.png"
+      alt=""
+      class="wrapper__img"
+    />
     <div class="wrapper__input">
-      <input type="text"
-             class="wrapper__input__content"
-             placeholder="请输入用户名"
-             v-model="username" />
+      <input
+        type="text"
+        class="wrapper__input__content"
+        placeholder="请输入用户名"
+        v-model="username"
+      />
     </div>
     <div class="wrapper__input">
-      <input type="password"
-             class="wrapper__input__content"
-             placeholder="请输入密码"
-             v-model="password"
-             autocomplete="new-password" />
+      <input
+        type="password"
+        class="wrapper__input__content"
+        placeholder="请输入密码"
+        v-model="password"
+        autocomplete="new-password"
+      />
     </div>
-    <div class="wrapper__login-button"
-         @click="handleLogin">登录</div>
+    <div class="wrapper__login-button" @click="handleLogin">登录</div>
     <!-- 使用router-link, 因为有下划线 -->
     <!-- <router-link :to='{name:"Register"}'>
       <div class="wrapper__login-link">立即注册</div>
     </router-link> -->
-    <div class="wrapper__login-link"
-         @click="handleRegisterClick">立即注册</div>
-    <Toast v-if="show"
-           :message="toastMessage" />
+    <div class="wrapper__login-link" @click="handleRegisterClick">立即注册</div>
+    <Toast v-if="show" :message="toastMessage" />
   </div>
 </template>
 
@@ -121,10 +124,11 @@ export default {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0.06rem;
     &__content {
+      margin-top: 0.12rem;
+      line-height: 0.22rem;
       width: 100%;
       border: none;
       outline: none;
-      line-height: 0.48rem;
       background: none;
       font-size: 0.16rem;
       color: $content-notice-fontcolor;

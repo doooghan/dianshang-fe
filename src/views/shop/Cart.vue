@@ -1,59 +1,86 @@
 <template>
-  <div class="mask"
-       v-if="showCart"
-       @click="handleCartShowChange"></div>
+  <div class="mask" v-if="showCart" @click="handleCartShowChange"></div>
   <div class="cart">
-    <div class="product"
-         v-if="showCart">
+    <div class="product" v-if="showCart">
       <div class="product__header">
-        <div class="product__header__all"
-             @click="()=>setCartItemsChecked(shopId)">
-          <span class="product__header__all__icon iconfont"
-                v-html="calculations.allChecked ? '&#xe618;' : '&#xe61a;'"></span>
+        <div
+          class="product__header__all"
+          @click="() => setCartItemsChecked(shopId)"
+        >
+          <span
+            class="product__header__all__icon iconfont"
+            v-html="calculations.allChecked ? '&#xe618;' : '&#xe61a;'"
+          ></span>
           全选
         </div>
         <div class="product__header__clear">
-          <span class="product__header__clear__btn"
-                @click="()=>{cleanCartProducts(shopId); handleCartShowChange()}">清空购物车</span>
+          <span
+            class="product__header__clear__btn"
+            @click="
+              () => {
+                cleanCartProducts(shopId)
+                handleCartShowChange()
+              }
+            "
+            >清空购物车</span
+          >
         </div>
       </div>
-      <div v-for="item in productList"
-           :key="item._id"
-           class="product__item">
-        <div class="product__item__checked iconfont"
-             v-html="item.check ? '&#xe618;' : '&#xe61a;' "
-             @click="()=>changeCartItemChecked(shopId, item._id)"></div>
-        <img :src="item.imgUrl"
-             alt=""
-             class="product__item__img">
+      <div v-for="item in productList" :key="item._id" class="product__item">
+        <div
+          class="product__item__checked iconfont"
+          v-html="item.check ? '&#xe618;' : '&#xe61a;'"
+          @click="() => changeCartItemChecked(shopId, item._id)"
+        ></div>
+        <img :src="item.imgUrl" alt="" class="product__item__img" />
         <div class="product__item__detail">
-          <h4 class="product__item__title">{{item.name}}</h4>
+          <h4 class="product__item__title">{{ item.name }}</h4>
           <p class="product__item__price">
-            <span class="product__item__yen">&yen;</span>{{item.price}}
-            <span class="product__item__origin">&yen;{{item.oldPrice}}</span>
+            <span class="product__item__yen">&yen;</span>{{ item.price }}
+            <span class="product__item__origin">&yen;{{ item.oldPrice }}</span>
           </p>
         </div>
         <div class="product__number">
-          <div class="product__number__minus"
-               @click="()=>{changeCartItemInfo(shopId, item._id, item, -1)}">-</div>
-          {{item?.count || 0}}
-          <div class="product__number__plus"
-               @click="()=>{changeCartItemInfo(shopId, item._id, item, 1)}">+</div>
+          <span
+            class="product__number__minus iconfont"
+            @click="
+              () => {
+                changeCartItemInfo(shopId, item._id, item, -1)
+              }
+            "
+          >
+            &#xe780;
+          </span>
+          {{ item?.count || 0 }}
+          <span
+            class="product__number__plus iconfont"
+            @click="
+              () => {
+                changeCartItemInfo(shopId, item._id, item, 1)
+              }
+            "
+          >
+            &#xe845;
+          </span>
         </div>
       </div>
     </div>
     <div class="check">
-      <div class="check__icon"
-           @click="handleCartShowChange">
-        <img src="http://www.dell-lee.com/imgs/vue3/basket.png"
-             alt=""
-             class="check__icon__img">
-        <div class="check__icon__tag">{{calculations.total}}</div>
+      <div class="check__icon" @click="handleCartShowChange">
+        <img
+          src="http://www.dell-lee.com/imgs/vue3/basket.png"
+          alt=""
+          class="check__icon__img"
+        />
+        <div class="check__icon__tag">{{ calculations.total }}</div>
       </div>
-      <div class="check__info">总计：<span class="check__info__price">&yen; {{calculations.price}}</span></div>
-      <div class="check__btn"
-           v-if="calculations.total > 0">
-        <router-link :to="{path:`/OrderConfirmation/${shopId}`}">
+      <div class="check__info">
+        总计：<span class="check__info__price"
+          >&yen; {{ calculations.price }}</span
+        >
+      </div>
+      <div class="check__btn" v-if="calculations.total > 0">
+        <router-link :to="{ path: `/OrderConfirmation/${shopId}` }">
           去结算
         </router-link>
       </div>
@@ -230,25 +257,20 @@ export default {
       position: absolute;
       right: 0;
       bottom: 0.12rem;
-      &__minus,
-      &__plus {
-        display: inline-block;
-        width: 0.2rem;
-        height: 0.2rem;
-        border-radius: 50%;
-        font-size: 0.2rem;
-        line-height: 0.17rem;
-        text-align: center;
-      }
+      line-height: 0.2rem;
       &__minus {
-        border: 0.01rem solid $medium-fontcolor;
+        position: relative;
+        top: 0.02rem;
         color: $medium-fontcolor;
         margin-right: 0.05rem;
+        font-size: 0.2rem;
       }
       &__plus {
-        color: $bgColor;
-        background-color: $btn-bgColor;
+        position: relative;
+        top: 0.02rem;
+        color: $btn-bgColor;
         margin-left: 0.05rem;
+        font-size: 0.2rem;
       }
     }
   }

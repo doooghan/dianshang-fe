@@ -2,27 +2,31 @@
   <div class="wrapper">
     <div class="title">我的订单</div>
     <div class="orders">
-      <div class="order"
-           v-for="(item,index) in list"
-           :key="index">
+      <div class="order" v-for="(item, index) in list" :key="index">
         <div class="order__title">
-          {{item.shopName}}
+          {{ item.shopName }}
           <span class="order__status">
-            {{item.isCanceled ? "已取消" : "已下单"}}
+            {{ item.isCanceled ? '已取消' : '已下单' }}
           </span>
         </div>
         <div class="order__content">
           <div class="order__content__imgs">
-            <template v-for="(innerItem, innerIndex) in item.products"
-                      :key="innerIndex">
-              <img :src="innerItem.product.img"
-                   alt=""
-                   class="order__content__img">
+            <template
+              v-for="(innerItem, innerIndex) in item.products"
+              :key="innerIndex"
+            >
+              <img
+                :src="innerItem.product.img"
+                alt=""
+                class="order__content__img"
+              />
             </template>
           </div>
           <div class="order__content__info">
-            <div class="order__content__price">¥ {{ item.totalPrice}}</div>
-            <div class="order__content__count">共 {{item.totalNumber}} 件</div>
+            <div class="order__content__price">¥ {{ item.totalPrice }}</div>
+            <div class="order__content__count">
+              共 {{ item.totalNumber }} 件
+            </div>
           </div>
         </div>
       </div>
@@ -72,7 +76,6 @@ export default {
   components: { Docker },
   setup() {
     const { list } = useOrderListEffect()
-    console.log(list)
     return { list }
   },
 }
