@@ -9,7 +9,7 @@
       <input
         type="text"
         class="wrapper__input__content"
-        placeholder="请输入用户名"
+        placeholder="请输入手机号"
         v-model="username"
       />
     </div>
@@ -62,7 +62,7 @@ const useRegisterEffect = (showToast) => {
         ensurement == null ||
         ensurement === ''
       ) {
-        showToast('请输入用户名和密码和确认密码')
+        showToast('请输入手机号与密码')
         return null
       }
       if (ensurement !== password) {

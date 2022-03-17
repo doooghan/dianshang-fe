@@ -9,7 +9,7 @@
       <input
         type="text"
         class="wrapper__input__content"
-        placeholder="请输入用户名"
+        placeholder="请输入手机号"
         v-model="username"
       />
     </div>
@@ -53,7 +53,7 @@ const useLoginEffect = (showToast) => {
         password == null ||
         password === ''
       ) {
-        showToast('请输入用户名和密码')
+        showToast('请输入手机号和密码')
         return null
       }
       const result = await post('api/user/login', {
