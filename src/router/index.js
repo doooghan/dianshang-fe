@@ -8,9 +8,32 @@ const routes = [
       import(/* webpackChunkName: "home" */ "../views/home/Home"),
   },
   {
+    path: "/addressCreate",
+    name: "AddressCreate",
+    component: () =>
+      import(
+        /* webpackChunkName: "addressCreate" */ "../views/addressCreate/AddressCreate"
+      ),
+  },
+  {
+    path: "/addressUpdate/:id",
+    name: "AddressUpdate",
+    component: () =>
+      import(
+        /* webpackChunkName: "addressUpdate" */ "../views/addressUpdate/AddressUpdate"
+      ),
+  },
+  {
+    path: "/address",
+    name: "Address",
+    component: () =>
+      import(/* webpackChunkName: "address" */ "../views/address/Address"),
+  },
+  {
     path: "/mine",
     name: "Mine",
-    component: () => import(/* webpackChunkName: "mne" */ "../views/mine/Mine"),
+    component: () =>
+      import(/* webpackChunkName: "mine" */ "../views/mine/Mine"),
   },
   {
     path: "/orderConfirmation/:id",

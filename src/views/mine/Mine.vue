@@ -28,13 +28,15 @@
     </div>
   </div>
   <div class="setting">
-    <div class="setting__item">
-      <div class="setting__item__left">
-        <div class="setting__item__icon iconfont">&#xe619;</div>
-        我的地址
+    <router-link :to="{ name: 'Address' }">
+      <div class="setting__item">
+        <div class="setting__item__left">
+          <div class="setting__item__icon iconfont">&#xe619;</div>
+          我的地址
+        </div>
+        <div class="setting__item__expand iconfont">&#xe601;</div>
       </div>
-      <div class="setting__item__expand iconfont">&#xe601;</div>
-    </div>
+    </router-link>
   </div>
   <Docker :currentIndex="3" />
 </template>
@@ -101,6 +103,9 @@ export default {
   border-radius: 8px;
   margin: 0.16rem;
   padding: 0.04rem 0;
+  a {
+    text-decoration: none;
+  }
   &__item {
     display: flex;
     justify-content: space-between;
