@@ -1,11 +1,15 @@
 <template>
   <div class="docker">
-    <div v-for="(item, index) in dockerList"
-         :class="{ docker__item: true, 'docker__item--active': index === currentIndex }"
-         :key="index">
+    <div
+      v-for="(item, index) in dockerList"
+      :class="{
+        docker__item: true,
+        'docker__item--active': index === currentIndex,
+      }"
+      :key="index"
+    >
       <router-link :to="item.to">
-        <div class="iconfont"
-             v-html="item.icon" />
+        <div class="iconfont" v-html="item.icon" />
         <div class="docker__title">{{ item.text }}</div>
       </router-link>
     </div>
@@ -21,7 +25,7 @@ export default {
       { icon: '&#xe8b9;', text: '首页', to: { name: 'Home' } },
       { icon: '&#xe742;', text: '购物车', to: { name: 'CartList' } },
       { icon: '&#xe8ae;', text: '订单', to: { name: 'OrderList' } },
-      { icon: '&#xe6ef;', text: '我的', to: { name: 'Home' } },
+      { icon: '&#xe6ef;', text: '我的', to: { name: 'Mine' } },
     ]
     return { dockerList }
   },
