@@ -120,7 +120,7 @@ export default {
     height: 0.48rem;
     padding: 0 0.16rem;
     margin: 0 0.4rem 0.16rem 0.4rem;
-    background: #f9f9f9;
+    background: $input-bgColor;
     border: 0.01rem solid rgba(0, 0, 0, 0.1);
     border-radius: 0.06rem;
     &__content {

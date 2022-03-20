@@ -63,21 +63,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../style/viriables.scss';
 .info {
   margin: 0.12rem;
   &__input {
     line-height: 0.45rem;
     font-size: 0.14rem;
-    color: #666666;
-    background-color: #fff;
+    color: $medium-fontcolor;
+    background-color: $bgColor;
     padding: 0 0.18rem;
-    border-bottom: 0.01rem solid #f1f1f1;
+    border-bottom: 0.01rem solid $content-bgColor;
     &__content {
       width: 60%;
       outline: none;
       border: none;
       ::placeholder {
-        color: #999999;
+        color: $light-fontcolor;
       }
     }
   }

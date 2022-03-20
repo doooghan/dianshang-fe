@@ -90,7 +90,7 @@ export default {
   &__title {
     margin-bottom: 0.12rem;
     font-size: 0.14rem;
-    color: #333333;
+    color: $content-fontcolor;
   }
   a {
     display: block;
@@ -99,7 +99,7 @@ export default {
   &__item {
     display: flex;
     padding: 0.18rem;
-    background: #ffffff;
+    background: $bgColor;
     border-radius: 0.04rem;
     margin-bottom: 0.16rem;
   }
@@ -109,7 +109,7 @@ export default {
   &__info {
     display: flex;
     font-size: 0.14rem;
-    color: #999999;
+    color: $light-fontcolor;
     line-height: 0.2rem;
     &__name {
       margin-right: 0.66rem;
@@ -117,14 +117,14 @@ export default {
   }
   &__content {
     font-size: 0.14rem;
-    color: #333333;
+    color: $content-fontcolor;
     line-height: 0.2rem;
     padding: 0.08rem 0.2rem 0 0;
   }
   &__expand {
     margin: auto;
     transform: rotate(180deg);
-    color: #999999;
+    color: $light-fontcolor;
     font-size: 0.18rem;
   }
 }

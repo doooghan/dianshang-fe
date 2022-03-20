@@ -39,23 +39,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../style/viriables.scss';
 .header {
   display: flex;
   padding: 0 0.18rem;
   justify-content: space-between;
-  background-color: #fff;
+  background-color: $bgColor;
   line-height: 0.44rem;
   &__back {
     font-size: 0.2rem;
-    color: #b6b6b6;
+    color: $back-bgColor;
   }
   &__title {
     font-size: 0.16rem;
-    color: #333333;
+    color: $content-fontcolor;
   }
   &__right {
     font-size: 0.14rem;
-    color: #333333;
+    color: $content-fontcolor;
   }
 }
 </style>

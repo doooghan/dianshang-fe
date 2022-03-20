@@ -18,13 +18,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../style/viriables.scss';
 .wrapper {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: #eee;
+  background-color: $bgColor-gray;
   overflow-y: scroll;
 }
 </style>

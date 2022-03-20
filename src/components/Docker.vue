@@ -57,7 +57,7 @@ export default {
     }
     &--active {
       a {
-        color: #1fa4fc;
+        color: $active-color;
       }
     }
   }

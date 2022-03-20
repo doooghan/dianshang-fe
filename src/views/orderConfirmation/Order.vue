@@ -125,7 +125,7 @@ export default {
   }
   &__btn {
     width: 0.98rem;
-    background: #4fb0f9;
+    background: $confirem-bgColor;
     color: $bgColor;
     text-align: center;
     font-size: 0.14rem;
@@ -147,7 +147,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #ffffff;
+    background: $bgColor;
     border-radius: 0.04rem;
     text-align: center;
     &__title {
@@ -155,13 +155,13 @@ export default {
       margin: 0.24rem 0 0 0;
       font-size: 0.18rem;
       line-height: 0.26rem;
-      color: #333333;
+      color: $content-fontcolor;
     }
     &__desc {
       margin: 0.08rem 0 0 0;
       line-height: 0.2rem;
       font-size: 0.14rem;
-      color: #666666;
+      color: $medium-fontcolor;
     }
     &__btns {
       display: flex;
@@ -172,16 +172,16 @@ export default {
       width: 0.84rem;
       line-height: 0.32rem;
       font-size: 0.14rem;
-      border: 0.01rem solid #4fb0f9;
+      border: 0.01rem solid $confirem-bgColor;
       border-radius: 0.16rem;
       &__first {
         margin-right: 0.12rem;
-        color: #0091ff;
+        color: $btn-bgColor;
       }
       &__last {
         margin-left: 0.12rem;
-        color: #ffffff;
-        background: #4fb0f9;
+        color: $bgColor;
+        background: $confirem-bgColor;
       }
     }
   }

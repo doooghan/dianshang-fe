@@ -317,7 +317,7 @@ export default {
   }
   &__btn {
     width: 0.98rem;
-    background: #4fb0f9;
+    background: $confirem-bgColor;
     line-height: 0.49rem;
     font-size: 0.14rem;
     text-align: center;

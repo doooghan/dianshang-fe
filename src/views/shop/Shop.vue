@@ -1,18 +1,17 @@
 <template>
   <div class="wrapper">
     <div class="search">
-      <div class="search__back iconfont"
-           @click="handleBackClick">&#xe601;</div>
+      <div class="search__back iconfont" @click="handleBackClick">&#xe601;</div>
       <div class="search__content">
         <div class="search__content__icon iconfont">&#xe600;</div>
-        <input type="text"
-               class="search__content__input"
-               placeholder="请输入商品名称搜索">
+        <input
+          type="text"
+          class="search__content__input"
+          placeholder="请输入商品名称搜索"
+        />
       </div>
     </div>
-    <ShopInfo :item="item"
-              :hideBorder="true"
-              v-show="item.imgUrl" />
+    <ShopInfo :item="item" :hideBorder="true" v-show="item.imgUrl" />
     <Content :shopName="item.name" />
     <Cart />
   </div>
@@ -73,7 +72,7 @@ export default {
   &__back {
     width: 0.3rem;
     font-size: 0.24rem;
-    color: #b6b6b6;
+    color: $back-bgColor;
   }
   &__content {
     display: flex;

@@ -51,13 +51,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../style/viriables.scss';
 .wrapper {
   background-image: linear-gradient(239deg, #3a6ff3 0%, #50c7fb 100%);
   height: 2.5rem;
 }
 .user {
   margin: -1.5rem 0.16rem 0 0.16rem;
-  background: #ffffff;
+  background: $bgColor;
   box-shadow: 0 0.08rem 0.16rem 0 rgba(0, 0, 0, 0.08);
   border-radius: 0.08rem;
   text-align: center;
@@ -69,36 +70,36 @@ export default {
   }
   &__name {
     font-size: 0.24rem;
-    color: #262628;
+    color: $mine-dark;
     line-height: 0.36rem;
   }
   &__id {
     font-size: 0.14rem;
-    color: #c1c0c9;
+    color: $mine-light;
     margin-bottom: 0.12rem;
   }
   &__discount {
     display: flex;
-    border-top: 0.01rem solid #f1f1f1;
+    border-top: 0.01rem solid $content-bgColor;
     padding: 0.12rem 0 0.16rem 0;
     &__item {
       flex: 25%;
       &__title {
         font-size: 0.12rem;
-        color: #c1c0c9;
+        color: $mine-light;
         text-align: center;
         margin-bottom: 0.03rem;
       }
       &__count {
         font-size: 0.2rem;
-        color: #262628;
+        color: $mine-dark;
         text-align: center;
       }
     }
   }
 }
 .setting {
-  background: #ffffff;
+  background: $bgColor;
   box-shadow: 0 0.08rem 0.16rem 0 rgba(0, 0, 0, 0.08);
   border-radius: 0.08rem;
   margin: 0.16rem;
@@ -110,7 +111,7 @@ export default {
     display: flex;
     justify-content: space-between;
     font-size: 0.14rem;
-    color: #262626;
+    color: $mine-dark;
     padding: 0.12rem;
     line-height: 0.2rem;
     &__left {
@@ -120,14 +121,14 @@ export default {
       width: 0.22rem;
       height: 0.22rem;
       border-radius: 0.08rem;
-      background: #32c5ff;
-      color: #fff;
+      background: $location-blue;
+      color: $bgColor;
       text-align: center;
       margin-right: 0.12rem;
     }
     &__expand {
       transform: rotate(180deg);
-      color: #c2c4ca;
+      color: $back-bgColor;
     }
   }
 }
