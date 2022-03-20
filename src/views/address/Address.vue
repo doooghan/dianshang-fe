@@ -1,17 +1,25 @@
 <template>
   <div class="wrapper">
-    <Header title="管理收货地址" rightContent="创建" />
+    <Header
+      title="管理收货地址"
+      rightContent="创建"
+      @handleClick="createAddressClick"
+    />
     <div class="address">
-      <div class="address__title" @click="handleClick">我的收货地址</div>
-      <router-link :to="{ path: `/addressUpdate/1` }">
+      <div class="address__title">我的收货地址</div>
+      <router-link
+        :to="{ path: `/addressUpdate/${item._id}` }"
+        v-for="item in list"
+        :key="item._id"
+      >
         <div class="address__item">
           <div class="address__left">
             <div class="address__info">
-              <div class="address__info__name">小花</div>
-              <div class="address__info__tel">18911023261</div>
+              <div class="address__info__name">{{ item.name }}</div>
+              <div class="address__info__tel">{{ item.phone }}</div>
             </div>
             <div class="address__content">
-              北京市海淀区西三环北路 2号院 北京理工大学 国防科技园2号楼 10层
+              {{ item.department }} {{ item.houseNumber }}
             </div>
           </div>
           <div class="address__expand iconfont">&#xe601;</div>
@@ -22,21 +30,47 @@
 </template>
 
 <script>
+import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import Header from '../../components/Header.vue'
+import { get } from '../../utils/request'
+
+// 获取地址列表
+const useAddressEffect = () => {
+  const data = reactive({ list: [] })
+
+  const getAddressList = async () => {
+    const result = await get(`/api/user/address`)
+    if (result?.errno === 0 && result?.data) {
+      data.list = result.data
+    }
+  }
+
+  const { list } = toRefs(data)
+  return { list, getAddressList }
+}
+
+// 右上角按钮方法
+const useCreateEffect = () => {
+  const router = useRouter()
+
+  const createAddressClick = () => {
+    console.log('to address create')
+    router.push({ name: 'AddressCreate' })
+  }
+
+  return { createAddressClick }
+}
+
 export default {
   name: 'Address',
   components: { Header },
   setup() {
-    const router = useRouter()
-    const handleBackClick = () => {
-      router.back()
-    }
-    // 测试
-    const handleClick = () => {
-      router.push({ name: 'AddressCreate' })
-    }
-    return { handleBackClick, handleClick }
+    const { list, getAddressList } = useAddressEffect()
+    getAddressList()
+    const { createAddressClick } = useCreateEffect()
+
+    return { createAddressClick, list }
   },
 }
 </script>
@@ -55,7 +89,7 @@ export default {
   padding: 0.16rem 0.18rem;
   &__title {
     margin-bottom: 0.12rem;
-    font-size: 14px;
+    font-size: 0.14rem;
     color: #333333;
   }
   a {
@@ -66,11 +100,15 @@ export default {
     display: flex;
     padding: 0.18rem;
     background: #ffffff;
-    border-radius: 4px;
+    border-radius: 0.04rem;
+    margin-bottom: 0.16rem;
+  }
+  &__left {
+    flex: 1;
   }
   &__info {
     display: flex;
-    font-size: 14px;
+    font-size: 0.14rem;
     color: #999999;
     line-height: 0.2rem;
     &__name {
@@ -78,10 +116,10 @@ export default {
     }
   }
   &__content {
-    font-size: 14px;
+    font-size: 0.14rem;
     color: #333333;
     line-height: 0.2rem;
-    padding: 0.08rem 0.4rem 0 0;
+    padding: 0.08rem 0.2rem 0 0;
   }
   &__expand {
     margin: auto;

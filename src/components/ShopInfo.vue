@@ -1,14 +1,17 @@
 <template>
   <div class="shop">
-    <img :src="item.imgUrl"
-         alt=""
-         class="shop__img" />
-    <div :class="{'shop__content':true, 'shop__content--bordered': hideBorder ? false : true}">
+    <img :src="item.imgUrl" alt="" class="shop__img" />
+    <div
+      :class="{
+        shop__content: true,
+        'shop__content--bordered': hideBorder ? false : true,
+      }"
+    >
       <div class="shop__content__title">{{ item.name }}</div>
       <div class="shop__content__tags">
-        <span class="shop__content__tag">月售{{item.sales}}</span>
-        <span class="shop__content__tag">起送¥{{item.expressLimit}}</span>
-        <span class="shop__content__tag">基础运费¥{{item.expressPrice}}</span>
+        <span class="shop__content__tag">月售{{ item.sales }}</span>
+        <span class="shop__content__tag">起送¥{{ item.expressLimit }}</span>
+        <span class="shop__content__tag">基础运费¥{{ item.expressPrice }}</span>
       </div>
       <p class="shop__content__highlight">
         {{ item.slogan }}
@@ -38,7 +41,7 @@ export default {
     flex: 1;
     padding-bottom: 0.12rem;
     &--bordered {
-      border-bottom: 1px solid $content-bgColor;
+      border-bottom: 0.01rem solid $content-bgColor;
     }
     &__title {
       line-height: 0.22rem;

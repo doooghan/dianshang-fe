@@ -1,16 +1,19 @@
 <template>
   <div class="wrapper">
-    <AddressInfo title="编辑收货地址" rightContent="保存" />
+    <Header title="编辑收货地址" rightContent="保存" />
+    <!--  @handleClick="createAddressClick" -->
+    <AddressInfo />
   </div>
 </template>
 
 <script>
+import Header from '../../components/Header.vue'
+
 import AddressInfo from '../../components/AddressInfo.vue'
 
 export default {
   name: 'AddressUpdate',
-
-  components: { AddressInfo },
+  components: { AddressInfo, Header },
 }
 </script>
 

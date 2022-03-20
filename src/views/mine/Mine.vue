@@ -58,8 +58,8 @@ export default {
 .user {
   margin: -1.5rem 0.16rem 0 0.16rem;
   background: #ffffff;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
+  box-shadow: 0 0.08rem 0.16rem 0 rgba(0, 0, 0, 0.08);
+  border-radius: 0.08rem;
   text-align: center;
   &__img {
     width: 0.94rem;
@@ -68,12 +68,12 @@ export default {
     margin-top: -0.47rem;
   }
   &__name {
-    font-size: 24px;
+    font-size: 0.24rem;
     color: #262628;
-    line-height: 36px;
+    line-height: 0.36rem;
   }
   &__id {
-    font-size: 14px;
+    font-size: 0.14rem;
     color: #c1c0c9;
     margin-bottom: 0.12rem;
   }
@@ -84,13 +84,13 @@ export default {
     &__item {
       flex: 25%;
       &__title {
-        font-size: 12px;
+        font-size: 0.12rem;
         color: #c1c0c9;
         text-align: center;
         margin-bottom: 0.03rem;
       }
       &__count {
-        font-size: 20px;
+        font-size: 0.2rem;
         color: #262628;
         text-align: center;
       }
@@ -99,8 +99,8 @@ export default {
 }
 .setting {
   background: #ffffff;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
+  box-shadow: 0 0.08rem 0.16rem 0 rgba(0, 0, 0, 0.08);
+  border-radius: 0.08rem;
   margin: 0.16rem;
   padding: 0.04rem 0;
   a {
@@ -109,7 +109,7 @@ export default {
   &__item {
     display: flex;
     justify-content: space-between;
-    font-size: 14px;
+    font-size: 0.14rem;
     color: #262626;
     padding: 0.12rem;
     line-height: 0.2rem;
@@ -119,7 +119,7 @@ export default {
     &__icon {
       width: 0.22rem;
       height: 0.22rem;
-      border-radius: 8px;
+      border-radius: 0.08rem;
       background: #32c5ff;
       color: #fff;
       text-align: center;

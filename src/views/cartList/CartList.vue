@@ -1,39 +1,38 @@
 <template>
   <div class="wrapper">
     <div class="title">我的全部购物车</div>
-    <div class="cart" v-for="(cartList, index) in allCartList" :key="index">
-      <div class="cart__title">
-        {{ cartList.shopName }}
-      </div>
-      <div class="cart__content">
-        <div
-          class="cart__item"
-          v-for="item in cartList.productList"
-          :key="item._id"
-        >
-          <img :src="item.imgUrl" alt="" class="cart__item__img" />
-          <div class="cart__item__content">
-            <div class="cart__item__title">{{ item.name }}</div>
-            <div class="cart__item__info">
-              <span class="cart__item__sales">
-                <span class="cart__item__yen">&yen; </span>
-                {{ item.price }} x {{ item.count }}
-              </span>
-              <span class="cart__item__price">
-                <span class="cart__item__yen">&yen; </span>
-                {{ item.price * item.count }}
-              </span>
+    <template v-for="(cartList, index) in allCartList" :key="index">
+      <div class="cart" v-if="Object.keys(cartList.productList).length != 0">
+        <div class="cart__title">
+          {{ cartList.shopName }}
+        </div>
+        <div class="cart__content">
+          <template v-for="item in cartList.productList" :key="item._id">
+            <div class="cart__item" v-if="item.count > 0">
+              <img :src="item.imgUrl" alt="" class="cart__item__img" />
+              <div class="cart__item__content">
+                <div class="cart__item__title">{{ item.name }}</div>
+                <div class="cart__item__info">
+                  <span class="cart__item__sales">
+                    <span class="cart__item__yen">&yen; </span>
+                    {{ item.price }} x {{ item.count }}
+                  </span>
+                  <span class="cart__item__price">
+                    <span class="cart__item__yen">&yen; </span>
+                    {{ item.price * item.count }}
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
+          </template>
         </div>
       </div>
-    </div>
+    </template>
   </div>
   <Docker :currentIndex="1" />
 </template>
 
 <script>
-// TODO 完成订购物车页面开发
 import Docker from '../../components/Docker.vue'
 import { useStore } from 'vuex'
 
@@ -69,7 +68,7 @@ export default {
 }
 .title {
   width: 100%;
-  font-size: 16px;
+  font-size: 0.16em;
   color: $content-fontcolor;
   line-height: 0.44rem;
   background: $bgColor;
@@ -77,7 +76,7 @@ export default {
 }
 .cart {
   background: $bgColor;
-  border-radius: 4px;
+  border-radius: 0.04rem;
   margin: 0.16rem 0.18rem;
   &__title {
     font-size: 0.16rem;

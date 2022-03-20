@@ -1,5 +1,4 @@
 <template>
-  <Header :title="title" :rightContent="rightContent" />
   <div class="info">
     <div class="info__input">
       <span class="info__input__title">所在城市：</span>
@@ -7,7 +6,7 @@
         type="text"
         class="info__input__content"
         placeholder="如北京市"
-        v-model="data.city"
+        v-model="createData.city"
       />
     </div>
     <div class="info__input">
@@ -16,7 +15,7 @@
         type="text"
         class="info__input__content"
         placeholder="如理工大学国防科技园"
-        v-model="data.department"
+        v-model="createData.department"
       />
     </div>
     <div class="info__input">
@@ -25,7 +24,7 @@
         type="text"
         class="info__input__content"
         placeholder="A号楼B层"
-        v-model="data.houseNumber"
+        v-model="createData.houseNumber"
       />
     </div>
     <div class="info__input">
@@ -34,7 +33,7 @@
         type="text"
         class="info__input__content"
         placeholder="请填写收货人的姓名"
-        v-model="data.name"
+        v-model="createData.name"
       />
     </div>
     <div class="info__input">
@@ -43,7 +42,7 @@
         type="text"
         class="info__input__content"
         placeholder="请填写收货手机号"
-        v-model="data.phone"
+        v-model="createData.phone"
       />
     </div>
   </div>
@@ -51,21 +50,14 @@
 
 <script>
 import { reactive } from 'vue'
-import Header from './Header.vue'
 
 export default {
   name: 'AddressInfo',
-  props: ['title', 'rightContent'],
-  components: { Header },
-  setup() {
-    const data = reactive({
-      city: 'city',
-      department: 'xx小区',
-      houseNumber: '门牌号',
-      name: '张三',
-      phone: '110',
-    })
-    return { data }
+  props: ['infoData'],
+  setup(props, context) {
+    const createData = reactive(props.infoData)
+
+    return { createData }
   },
 }
 </script>
@@ -75,7 +67,7 @@ export default {
   margin: 0.12rem;
   &__input {
     line-height: 0.45rem;
-    font-size: 14px;
+    font-size: 0.14rem;
     color: #666666;
     background-color: #fff;
     padding: 0 0.18rem;

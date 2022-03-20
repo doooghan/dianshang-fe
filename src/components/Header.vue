@@ -2,21 +2,38 @@
   <div class="header">
     <div class="header__back iconfont" @click="handleBackClick">&#xe601;</div>
     <div class="header__title">{{ title }}</div>
-    <div class="header__right">{{ rightContent }}</div>
+    <div class="header__right" @click="handleBtnClick">{{ rightContent }}</div>
   </div>
 </template>
 
 <script>
 import { useRouter } from 'vue-router'
+
+// 左上角的返回
+const uesBackEffect = () => {
+  const router = useRouter()
+  const handleBackClick = () => {
+    router.back()
+  }
+  return { handleBackClick }
+}
+
+const useBtnEffect = (context) => {
+  const handleBtnClick = () => {
+    console.log('header')
+    context.emit('handleClick')
+  }
+  return { handleBtnClick }
+}
+
 export default {
   name: 'Header',
   props: ['title', 'rightContent'],
-  setup() {
-    const router = useRouter()
-    const handleBackClick = () => {
-      router.back()
-    }
-    return { handleBackClick }
+  setup(props, context) {
+    const { handleBackClick } = uesBackEffect()
+    const { handleBtnClick } = useBtnEffect(context)
+
+    return { handleBackClick, handleBtnClick }
   },
 }
 </script>
@@ -33,11 +50,11 @@ export default {
     color: #b6b6b6;
   }
   &__title {
-    font-size: 16px;
+    font-size: 0.16rem;
     color: #333333;
   }
   &__right {
-    font-size: 14px;
+    font-size: 0.14rem;
     color: #333333;
   }
 }

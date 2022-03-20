@@ -1,22 +1,34 @@
 <template>
   <div class="order">
-    <div class="order__price">实付金额 <b>¥{{calculations.price}}</b></div>
-    <div class="order__btn"
-         @click="()=>handleShowConfirmChange(true)">提交订单</div>
+    <div class="order__price">
+      实付金额 <b>¥{{ calculations.price }}</b>
+    </div>
+    <div class="order__btn" @click="() => handleShowConfirmChange(true)">
+      提交订单
+    </div>
   </div>
-  <div class="mask"
-       v-show="showConfirm"
-       @click="()=>handleShowConfirmChange(false)">
-    <div class="mask__content"
-         @click.stop>
+  <div
+    class="mask"
+    v-show="showConfirm"
+    @click="() => handleShowConfirmChange(false)"
+  >
+    <div class="mask__content" @click.stop>
       <!--防止事件冒泡 -->
       <h4 class="mask__content__title">确认要离开收银台？</h4>
       <p class="mask__content__desc">请尽快完成支付，否则将被取消</p>
       <div class="mask__content__btns">
-        <div class="mask__content__btn mask__content__btn__first"
-             @click="()=>handleConfirmOrder(true)">取消订单</div>
-        <div class="mask__content__btn mask__content__btn__last"
-             @click="()=>handleConfirmOrder(false)">确认支付</div>
+        <div
+          class="mask__content__btn mask__content__btn__first"
+          @click="() => handleConfirmOrder(true)"
+        >
+          取消订单
+        </div>
+        <div
+          class="mask__content__btn mask__content__btn__last"
+          @click="() => handleConfirmOrder(false)"
+        >
+          确认支付
+        </div>
       </div>
     </div>
   </div>
@@ -54,8 +66,8 @@ const useMakeOrderEffect = (shopId, shopName, productList) => {
         router.push({ name: 'OrderList' })
       }
     } catch (e) {
-      // TODO 提示下单失败
-      console.log(e)
+      console.error(e)
+      console.log('下单失败')
     }
   }
 
