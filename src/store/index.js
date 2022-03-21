@@ -81,9 +81,20 @@ export default createStore({
       const { shopId } = payload;
       const products = state.cartList[shopId].productList;
       if (products) {
+        let flag = true;
         for (const key in products) {
           const product = products[key];
-          product.check = true;
+          if (!product.check) {
+            console.log(product.check);
+            product.check = true;
+            flag = false;
+          }
+        }
+        if (flag) {
+          for (const key in products) {
+            const product = products[key];
+            product.check = false;
+          }
         }
       }
       setLocalCartList(state);
