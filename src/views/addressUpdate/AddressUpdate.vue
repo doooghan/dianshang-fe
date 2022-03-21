@@ -31,7 +31,7 @@ const useInfoDataEffect = () => {
   })
 
   const getInfoData = async () => {
-    const result = await get(`api/user/address/${addressId}`)
+    const result = await get(`/api/user/address/${addressId}`)
     if (result?.errno === 0 && result?.data) {
       infoData.data = result?.data
     }

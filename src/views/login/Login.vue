@@ -56,7 +56,7 @@ const useLoginEffect = (showToast) => {
         showToast('请输入手机号和密码')
         return null
       }
-      const result = await post('api/user/login', {
+      const result = await post('/api/user/login', {
         username: data.username,
         password: data.password,
       })

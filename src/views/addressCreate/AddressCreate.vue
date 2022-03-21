@@ -34,7 +34,7 @@ const useSaveEffect = (sonRef) => {
   const handleCreateAddress = async () => {
     const createData = sonRef.value.createData
     try {
-      const result = await post('api/user/address', createData)
+      const result = await post('/api/user/address', createData)
       if (result?.errno === 0) {
         router.push({ name: 'Address' })
       }

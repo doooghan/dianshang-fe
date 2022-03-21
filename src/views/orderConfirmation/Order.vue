@@ -49,11 +49,11 @@ const useMakeOrderEffect = (shopId, shopName, productList) => {
     const products = []
     for (const i in productList.value) {
       const product = productList.value[i]
-      products.push({ id: parseInt(product._id, 10), num: product.count })
+      products.push({ id: product._id, num: product.count })
     }
     try {
-      const result = await post('api/order', {
-        addressId: 1,
+      const result = await post('/api/order', {
+        addressId: '62354c1e0902d76b68ea40b2', // TODO地址id不对
         shopId,
         shopName: shopName.value,
         isCanceled,
@@ -86,7 +86,7 @@ export default {
   name: 'Order',
   setup() {
     const route = useRoute()
-    const shopId = parseInt(route.params.id, 10)
+    const shopId = route.params.id
     const { productList, calculations, shopName } = useCommonCartEffect(shopId)
     const { handleConfirmOrder } = useMakeOrderEffect(
       shopId,

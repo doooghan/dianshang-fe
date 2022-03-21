@@ -69,7 +69,7 @@ const useRegisterEffect = (showToast) => {
         showToast('两次密码不同')
         return null
       }
-      const result = await post('api/user/register', {
+      const result = await post('/api/user/register', {
         username: data.username,
         password: data.password,
       })

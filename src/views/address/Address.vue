@@ -110,8 +110,9 @@ export default {
     font-size: 0.14rem;
     color: $light-fontcolor;
     line-height: 0.2rem;
-    &__name {
-      margin-right: 0.66rem;
+    &__name,
+    &__tel {
+      flex: 1;
     }
   }
   &__content {

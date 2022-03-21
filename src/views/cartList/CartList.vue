@@ -68,7 +68,7 @@ export default {
 }
 .title {
   width: 100%;
-  font-size: 0.16em;
+  font-size: 0.16rem;
   color: $content-fontcolor;
   line-height: 0.44rem;
   background: $bgColor;
