@@ -44,6 +44,7 @@ export default {
   height: 0.49rem;
   border-top: 0.01rem solid $content-bgColor;
   padding: 0 0.18rem;
+  overflow: hidden;
   &__item {
     flex: 1;
     text-align: center;

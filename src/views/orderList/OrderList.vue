@@ -95,7 +95,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0.5rem;
+  bottom: 0.49rem;
   right: 0;
   background-color: $bgColor-gray;
 }
