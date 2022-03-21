@@ -1,8 +1,6 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 
-// TODO 重新整理全局的 computed， 例如 notEmptyProductList 已经被打印了
-
 // 一个非空的全部购物车列表
 export const useStateCartListEffect = () => {
   const store = useStore();

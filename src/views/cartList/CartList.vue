@@ -37,7 +37,6 @@
 </template>
 
 <script>
-// import { useStore } from 'vuex'
 import { useStateCartListEffect } from '../../effects/cartEffects'
 import Docker from '../../components/Docker.vue'
 
@@ -83,7 +82,6 @@ export default {
   }
   &__item {
     display: flex;
-    // margin: 0.16rem;
     padding: 0.16rem;
     font-size: 0.14rem;
     color: $content-fontcolor;

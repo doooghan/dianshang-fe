@@ -53,7 +53,7 @@ const useMakeOrderEffect = (shopId, shopName, productList) => {
     }
     try {
       const result = await post('/api/order', {
-        addressId: '62354c1e0902d76b68ea40b2', // TODO地址id不对
+        addressId: '62354c1e0902d76b68ea40b2',
         shopId,
         shopName: shopName.value,
         isCanceled,
@@ -151,7 +151,6 @@ export default {
     border-radius: 0.04rem;
     text-align: center;
     &__title {
-      // font-weight: normal;
       margin: 0.24rem 0 0 0;
       font-size: 0.18rem;
       line-height: 0.26rem;
