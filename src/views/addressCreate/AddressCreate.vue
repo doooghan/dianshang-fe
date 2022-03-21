@@ -3,7 +3,7 @@
     <Header
       title="新建收货地址"
       rightContent="新建"
-      @handleClick="handleConfirmAddress"
+      @handleClick="handleCreateAddress"
     />
     <AddressInfo ref="sonRef" :infoData="data" />
   </div>
@@ -31,14 +31,11 @@ const useInfoDataEffect = () => {
 const useSaveEffect = (sonRef) => {
   const router = useRouter()
 
-  const handleConfirmAddress = async () => {
-    console.log('create')
+  const handleCreateAddress = async () => {
     const createData = sonRef.value.createData
     try {
       const result = await post('api/user/address', createData)
       if (result?.errno === 0) {
-        console.log('创建地址成功')
-        console.log(result.data)
         router.push({ name: 'Address' })
       }
     } catch (e) {
@@ -47,7 +44,7 @@ const useSaveEffect = (sonRef) => {
     }
   }
 
-  return { handleConfirmAddress }
+  return { handleCreateAddress }
 }
 
 export default {
@@ -55,10 +52,10 @@ export default {
   components: { AddressInfo, Header },
   setup() {
     const sonRef = ref(null)
-    const { handleConfirmAddress } = useSaveEffect(sonRef)
+    const { handleCreateAddress } = useSaveEffect(sonRef)
     const data = useInfoDataEffect()
 
-    return { handleConfirmAddress, data, sonRef }
+    return { handleCreateAddress, data, sonRef }
   },
 }
 </script>

@@ -49,13 +49,31 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, watch } from 'vue'
 
 export default {
   name: 'AddressInfo',
   props: ['infoData'],
   setup(props, context) {
-    const createData = reactive(props.infoData)
+    const createData = reactive({
+      city: '',
+      department: '',
+      houseNumber: '',
+      name: '',
+      phone: '',
+    })
+
+    watch(
+      () => props.infoData,
+      (newvalue, oldvalue) => {
+        createData.city = props.infoData.city
+        createData.department = props.infoData.department
+        createData.houseNumber = props.infoData.houseNumber
+        createData.name = props.infoData.name
+        createData.phone = props.infoData.phone
+      },
+      { deep: true, immediate: true }
+    )
 
     return { createData }
   },

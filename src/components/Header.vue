@@ -20,7 +20,6 @@ const uesBackEffect = () => {
 
 const useBtnEffect = (context) => {
   const handleBtnClick = () => {
-    console.log('header')
     context.emit('handleClick')
   }
   return { handleBtnClick }

@@ -55,7 +55,6 @@ const useCreateEffect = () => {
   const router = useRouter()
 
   const createAddressClick = () => {
-    console.log('to address create')
     router.push({ name: 'AddressCreate' })
   }
 
