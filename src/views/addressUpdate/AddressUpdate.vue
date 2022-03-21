@@ -51,7 +51,7 @@ const useUpdateEffect = (sonRef) => {
 
     const result = await patch(`/api/user/address/${addressId}`, createData)
     if (result?.errno === 0) {
-      router.push({ name: 'Address' })
+      router.back()
     } else {
       console.log(result)
     }

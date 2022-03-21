@@ -85,7 +85,6 @@ export default createStore({
         for (const key in products) {
           const product = products[key];
           if (!product.check) {
-            console.log(product.check);
             product.check = true;
             flag = false;
           }

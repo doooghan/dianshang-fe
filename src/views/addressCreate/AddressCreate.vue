@@ -36,7 +36,7 @@ const useSaveEffect = (sonRef) => {
     try {
       const result = await post('/api/user/address', createData)
       if (result?.errno === 0) {
-        router.push({ name: 'Address' })
+        router.back()
       }
     } catch (e) {
       console.error(e)
