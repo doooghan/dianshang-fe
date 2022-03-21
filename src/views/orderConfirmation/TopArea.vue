@@ -1,15 +1,21 @@
 <template>
   <div class="top">
     <div class="top__header">
-      <div class="top__header__back iconfont"
-           @click="handleBackClick">&#xe601;</div>确认订单
+      <div class="top__header__back iconfont" @click="handleBackClick">
+        &#xe601;
+      </div>
+      确认订单
     </div>
     <div class="top__receiver">
       <div class="top__receiver__title">收货地址</div>
-      <div class="top__receiver__address">北京理工大学国防科技园2号楼10层</div>
+      <div class="top__receiver__address">
+        {{ info.department }}{{ info.houseNumber }}
+      </div>
       <div class="top__receiver__info">
-        <span class="top__receiver__info__name">瑶妹（先生）</span>
-        <span class="top__receiver__info__tel">18911024266</span>
+        <span class="top__receiver__info__name">
+          {{ info.name }}（先生/女士）
+        </span>
+        <span class="top__receiver__info__tel">{{ info.phone }}</span>
       </div>
       <div class="top__receiver__icon iconfont">&#xe601;</div>
     </div>
@@ -18,6 +24,7 @@
 
 <script>
 import { useRouter } from 'vue-router'
+import { useAddressEffect } from '../../effects/defaultAddressEffect'
 
 export default {
   name: 'TopArea',
@@ -26,7 +33,10 @@ export default {
     const handleBackClick = () => {
       router.back()
     }
-    return { handleBackClick }
+    const { info, getInfo } = useAddressEffect()
+    getInfo()
+
+    return { handleBackClick, info }
   },
 }
 </script>

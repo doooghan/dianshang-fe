@@ -1,7 +1,7 @@
 <template>
   <div class="position">
     <span class="iconfont position__icon">&#xe619;</span>
-    北京理工大学国防科技园2号楼10层
+    {{ info.department }}{{ info.houseNumber }}
     <span class="iconfont position__notice">&#xeb68;</span>
   </div>
   <div class="search">
@@ -9,17 +9,19 @@
     <span class="search__text">山姆会员商店优惠商品</span>
   </div>
   <div class="banner">
-    <img class="banner__img"
-         src="http://www.dell-lee.com/imgs/vue3/banner.jpg"
-         alt="" />
+    <img
+      class="banner__img"
+      src="http://www.dell-lee.com/imgs/vue3/banner.jpg"
+      alt=""
+    />
   </div>
   <div class="icons">
-    <div class="icons__items"
-         v-for="(item, index) in iconList"
-         :key="index">
-      <img :src="`http://www.dell-lee.com/imgs/vue3/${item.imgName}.png`"
-           alt=""
-           class="icons__items__img" />
+    <div class="icons__items" v-for="(item, index) in iconList" :key="index">
+      <img
+        :src="`http://www.dell-lee.com/imgs/vue3/${item.imgName}.png`"
+        alt=""
+        class="icons__items__img"
+      />
       <p class="icons__items__desc">{{ item.desc }}</p>
     </div>
   </div>
@@ -27,6 +29,8 @@
 </template>
 
 <script>
+import { useAddressEffect } from '../../effects/defaultAddressEffect'
+
 export default {
   name: 'StaticPart',
   setup() {
@@ -42,7 +46,9 @@ export default {
       { imgName: '大牌免运', desc: '大牌免运' },
       { imgName: '红包', desc: '红包套餐' },
     ]
-    return { iconList }
+    const { info, getInfo } = useAddressEffect()
+    getInfo()
+    return { iconList, info }
   },
 }
 </script>
