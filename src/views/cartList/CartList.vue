@@ -1,55 +1,52 @@
 <template>
   <div class="wrapper">
     <div class="title">我的全部购物车</div>
-    <template v-for="(cartList, index) in allCartList" :key="index">
-      <div class="cart" v-if="Object.keys(cartList.productList).length != 0">
-        <div class="cart__title">
-          {{ cartList.shopName }}
-        </div>
-        <div class="cart__content">
-          <template v-for="item in cartList.productList" :key="item._id">
-            <div class="cart__item" v-if="item.count > 0">
-              <img :src="item.imgUrl" alt="" class="cart__item__img" />
-              <div class="cart__item__content">
-                <div class="cart__item__title">{{ item.name }}</div>
-                <div class="cart__item__info">
-                  <span class="cart__item__sales">
-                    <span class="cart__item__yen">&yen; </span>
-                    {{ item.price }} x {{ item.count }}
-                  </span>
-                  <span class="cart__item__price">
-                    <span class="cart__item__yen">&yen; </span>
-                    {{ item.price * item.count }}
-                  </span>
-                </div>
-              </div>
+    <div
+      class="cart"
+      v-for="(cartList, index) in notEmptyAllCartList"
+      :key="index"
+    >
+      <div class="cart__title">
+        {{ cartList.shopName }}
+      </div>
+      <div class="cart__content">
+        <div
+          class="cart__item"
+          v-for="item in cartList.productList"
+          :key="item._id"
+        >
+          <img :src="item.imgUrl" alt="" class="cart__item__img" />
+          <div class="cart__item__content">
+            <div class="cart__item__title">{{ item.name }}</div>
+            <div class="cart__item__info">
+              <span class="cart__item__sales">
+                <span class="cart__item__yen">&yen; </span>
+                {{ item.price }} x {{ item.count }}
+              </span>
+              <span class="cart__item__price">
+                <span class="cart__item__yen">&yen; </span>
+                {{ item.price * item.count }}
+              </span>
             </div>
-          </template>
+          </div>
         </div>
       </div>
-    </template>
+    </div>
   </div>
   <Docker :currentIndex="1" />
 </template>
 
 <script>
+// import { useStore } from 'vuex'
+import { useStateCartListEffect } from '../../effects/cartEffects'
 import Docker from '../../components/Docker.vue'
-import { useStore } from 'vuex'
-
-const useAllCart = () => {
-  const store = useStore()
-  // 获取全部购物车信息
-  const allCartList = store.state.cartList
-
-  return { allCartList }
-}
 
 export default {
   name: 'CartList',
   components: { Docker },
   setup() {
-    const { allCartList } = useAllCart()
-    return { allCartList }
+    const { notEmptyAllCartList } = useStateCartListEffect()
+    return { notEmptyAllCartList }
   },
 }
 </script>

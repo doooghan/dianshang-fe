@@ -3,6 +3,33 @@ import { useStore } from "vuex";
 
 // TODO 重新整理全局的 computed， 例如 notEmptyProductList 已经被打印了
 
+// 一个非空的全部购物车列表
+export const useStateCartListEffect = () => {
+  const store = useStore();
+  const allCartList = store.state.cartList;
+  const notEmptyAllCartList = computed(() => {
+    const notEmptyAllCartList = {};
+    for (const i in allCartList) {
+      const cartList = allCartList[i];
+      const productList = cartList.productList;
+      if (Object.keys(productList).length > 0) {
+        notEmptyAllCartList[i] = {
+          shopName: cartList.shopName,
+          productList: {},
+        };
+        for (const j in productList) {
+          const product = productList[j];
+          if (product.count > 0) {
+            notEmptyAllCartList[i].productList[j] = product;
+          }
+        }
+      }
+    }
+    return notEmptyAllCartList;
+  });
+  return { notEmptyAllCartList };
+};
+
 // 购物车相关逻辑
 export const useCommonCartEffect = (shopId) => {
   const store = useStore();
