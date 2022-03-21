@@ -1,9 +1,10 @@
 import axios from "axios";
 
 // 线上的 mock 接口
+// 1. patch 接口用 post 模拟
+// 2. orderList 组件内图片是 img 与真实接口i mgUrl 不同
 // const instance = axios.create({
-//   baseURL:
-//     "https://www.fastmock.site/mock/ae8e9031947a302fed5f92425995aa19/jd",
+//   baseURL: "https://www.fastmock.site/mock/ae8e9031947a302fed5f92425995aa19/jd",
 //   timeout: 1000,
 // });
 

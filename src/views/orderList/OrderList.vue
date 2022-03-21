@@ -16,10 +16,16 @@
               :key="innerIndex"
             >
               <img
-                :src="innerItem.product.img"
+                :src="innerItem.product.imgUrl"
                 alt=""
                 class="order__content__img"
               />
+              <!-- mock接口处 -->
+              <!-- <img
+                :src="innerItem.product.img"
+                alt=""
+                class="order__content__img"
+              /> -->
             </template>
           </div>
           <div class="order__content__info">
@@ -99,8 +105,6 @@ export default {
   font-size: 0.16rem;
   color: $content-fontcolor;
   text-align: center;
-}
-.orders {
 }
 .order {
   margin: 0.16rem 0.18rem;
